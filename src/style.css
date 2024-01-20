@@ -1,0 +1,110 @@
+@font-face {
+  font-family: rubikFont;
+  src: url(../src/fonts/Rubik-Regular.ttf);
+}
+
+.rubikFont {
+  font-family: 'Rubik', sans-serif !important;
+  font-weight: 100 !important;
+  font-size: 15px;
+}
+
+#fontColor1 {
+  color: #c9c5c5;
+}
+
+.font-details {
+  font-size: 12px !important;
+  size: 12px;
+}
+
+.font-highlight {
+  font-size: 22px !important;
+  font-weight: 600;
+}
+
+.App {
+  text-align: center;
+}
+
+/* .App-logo {
+  height: 40vmin;
+  pointer-events: none;
+} */
+
+/* @media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+} */
+
+/* .App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+} */
+
+/* .App-link {
+  color: #61dafb;
+} */
+/* 
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
+
+#bgColor1 {
+  background-color: #171717;
+}
+
+/* navbar */
+#navBarLogo {
+  height: 50px;
+  width: 100%;
+}
+
+/* AddProduct Component */
+.product {
+  margin: 20%;
+}
+
+.inputBoxDescription {
+  padding: 6px 6px 30px !important;
+  display: block !important;
+  border: 1px solid skyblue !important;
+  /* width: 80% !important; */
+  margin: 10px !important;
+}
+
+.inputBox {
+  padding: 7px !important;
+  display: block !important;
+  border: 1px solid skyblue !important;
+  width: 60% !important;
+  margin: 10px !important;
+}
+
+.appButton {
+  margin: 10px 10px 20px;
+  width: 120px;
+  padding: 5px;
+  background-color: skyblue;
+  border: solid 1px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+#submitBtn {
+  border-radius: 20px !important;
+  margin-top: 10px;
+  width: 100%;
+}
