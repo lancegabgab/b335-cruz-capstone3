@@ -1,5 +1,6 @@
 import { Form, Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 import '../style.css';
 import 'react-bootstrap';
 
@@ -117,7 +118,6 @@ export default function Register() {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         if (data.message === 'Registered Successfully') {
           setFormFields({
             firstName: '',
@@ -127,14 +127,31 @@ export default function Register() {
             password: '',
             confirmPassword: '',
           });
-          alert('Registration Successful');
+
+          // SweetAlert2 for success
+          Swal.fire({
+            icon: 'success',
+            title: 'Registration Successful',
+            text: 'You have been successfully registered!',
+          });
         } else {
-          alert('Something went wrong');
+          // SweetAlert2 for other registration errors
+          Swal.fire({
+            icon: 'error',
+            title: 'Registration Failed',
+            text: 'Something went wrong during registration. Please try again.',
+          });
         }
       })
       .catch((error) => {
         console.error('Error during registration:', error);
-        alert('Error during registration. Please try again.');
+
+        // SweetAlert2 for generic error
+        Swal.fire({
+          icon: 'error',
+          title: 'Error during registration',
+          text: 'An error occurred during registration. Please try again later.',
+        });
       });
   }
 
