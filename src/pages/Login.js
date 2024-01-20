@@ -1,16 +1,15 @@
 import { Form, Button } from 'react-bootstrap';
 import { useState, useEffect, useContext } from 'react';
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 import UserContext from '../UserContext';
 import { Container } from 'react-bootstrap';
 
-//export default function Login({ setUser })
 export default function Login() {
-  // Receive setUser as a prop
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isActive, setIsActive] = useState(true);
   const { user, setUser } = useContext(UserContext);
-  console.log(user);
 
   useEffect(() => {
     if (email !== '' && password !== '') {
@@ -38,11 +37,27 @@ export default function Login() {
         if (data.access) {
           localStorage.setItem('access', data.access);
           retrieveUserDetails(data.access);
-          alert(`You are now logged in`);
+          
+          // SweetAlert2 notification on successful login
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'You are now logged in',
+          });
         } else if (data.error === 'No Email Found') {
-          alert(`Email not found`);
+          // SweetAlert2 notification for email not found
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Email not found',
+          });
         } else {
-          alert(`${email} does not exist`);
+          // SweetAlert2 notification for other errors
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: `${email} does not exist`,
+          });
         }
       });
 
@@ -62,14 +77,8 @@ export default function Login() {
           id: data._id,
           isAdmin: data.isAdmin,
         });
-
-        console.log(user);
       });
   };
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   return (
     <Container>
