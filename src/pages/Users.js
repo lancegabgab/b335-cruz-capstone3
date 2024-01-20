@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { Container, Row, Col, Table, Button } from 'react-bootstrap';
+import Swal from 'sweetalert2';
 import UserContext from '../UserContext';
 
 const Users = () => {
@@ -32,33 +34,37 @@ const Users = () => {
     }
   };
 
-  const toggleAdminStatus = async (userId, isAdmin) => {
+  const handleSetAsAdmin = async (userId) => {
     try {
       const token = localStorage.getItem('access');
 
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/users/${userId}/toggle-admin`,
+        `${process.env.REACT_APP_API_URL}/users/${userId}/set-as-admin`,
         {
-          method: 'PUT',
+          method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ isAdmin: !isAdmin }),
         }
       );
 
       if (!response.ok) {
-        throw new Error(`Error toggling admin status: ${response.statusText}`);
+        throw new Error(`Error setting as admin: ${response.statusText}`);
       }
 
-      setUsers((prevUsers) =>
-        prevUsers.map((user) =>
-          user._id === userId ? { ...user, isAdmin: !isAdmin } : user
-        )
-      );
+      // Fetch updated user data after setting as admin
+      await fetchUsers();
+
+      // Show sweet alert on success
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: 'User has been set as admin successfully.',
+      });
+
     } catch (error) {
-      console.error('Error toggling admin status:', error);
+      console.error('Error setting as admin:', error);
       // Handle error
     }
   };
@@ -67,53 +73,48 @@ const Users = () => {
     fetchUsers();
   }, []);
 
-  const renderUsers = () => {
-    if (loading) {
-      return <p>Loading...</p>;
-    }
-
-    if (error) {
-      return <p>{error}</p>;
-    }
-
-    if (users.length === 0) {
-      return <p>No users available.</p>;
-    }
-
-    return (
-      <div>
-        <h1>All Users</h1>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>Name</th>
-              <th>Admin?</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((singleUser) => (
-              <tr key={singleUser._id}>
-                <td>{singleUser._id}</td>
-                <td>{singleUser._id}</td>
-                <td>{singleUser.isAdmin ? 'Yes' : 'No'}</td>
-                <td>
-                  <button
-                    onClick={() => toggleAdminStatus(singleUser._id, singleUser.isAdmin)}
-                  >
-                    {singleUser.isAdmin ? 'Remove Admin' : 'Set as Admin'}
-                  </button>
-                </td>
+  return (
+    <Container className="text-center">
+      <h1>All Users</h1>
+      <Row>
+        <Col>
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Name</th>
+                <th>Admin?</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
-  };
-
-  return renderUsers();
+            </thead>
+            <tbody>
+              {users.map((singleUser) => (
+                <tr key={singleUser._id}>
+                  <td>{singleUser._id}</td>
+                  <td>{`${singleUser.firstName} ${singleUser.lastName}`}</td>
+                  <td>{singleUser.isAdmin ? 'Yes' : 'No'}</td>
+                  <td>
+                    {singleUser.isAdmin ? (
+                      <Button variant="secondary" disabled>
+                        Admin
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="primary"
+                        onClick={() => handleSetAsAdmin(singleUser._id)}
+                      >
+                        Set as Admin
+                      </Button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
 export default Users;
