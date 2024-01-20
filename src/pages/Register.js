@@ -4,52 +4,68 @@ import '../style.css';
 import 'react-bootstrap';
 
 export default function Register() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [mobileNo, setMobileNo] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [formFields, setFormFields] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    mobileNo: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const [formErrors, setFormErrors] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    mobileNo: '',
+    password: '',
+    confirmPassword: '',
+  });
+
   const [isActive, setIsActive] = useState(false);
 
-  const [firstNameError, setFirstNameError] = useState('');
-  const [lastNameError, setLastNameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [mobileNoError, setMobileNoError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-
   useEffect(() => {
-    setFirstNameError('');
-    setLastNameError('');
-    setEmailError('');
-    setMobileNoError('');
-    setPasswordError('');
+    setFormErrors((prevErrors) => ({
+      ...prevErrors,
+      firstName: '',
+      lastName: '',
+      email: '',
+      mobileNo: '',
+      password: '',
+      confirmPassword: '',
+    }));
 
     if (
-      firstName !== '' &&
-      lastName !== '' &&
-      email !== '' &&
-      mobileNo !== '' &&
-      password !== '' &&
-      confirmPassword !== ''
+      formFields.firstName !== '' &&
+      formFields.lastName !== '' &&
+      formFields.email !== '' &&
+      formFields.mobileNo !== '' &&
+      formFields.password !== '' &&
+      formFields.confirmPassword !== ''
     ) {
-      if (!email.includes('@')) {
-        setEmailError('Email must contain @');
+      if (!formFields.email.includes('@')) {
+        setFormErrors((prevErrors) => ({ ...prevErrors, email: 'Email must contain @' }));
       }
 
-      if (mobileNo.length !== 11) {
-        setMobileNoError('Mobile number must be 11 digits');
+      if (formFields.mobileNo.length !== 11) {
+        setFormErrors((prevErrors) => ({ ...prevErrors, mobileNo: 'Mobile number must be 11 digits' }));
       }
 
-      if (password.length < 8) {
-        setPasswordError('Password must be at least 8 characters');
+      if (formFields.password.length < 8) {
+        setFormErrors((prevErrors) => ({ ...prevErrors, password: 'Password must be at least 8 characters' }));
+      }
+
+      if (formFields.password !== formFields.confirmPassword) {
+        setFormErrors((prevErrors) => ({ ...prevErrors, confirmPassword: 'Passwords must match' }));
+      } else {
+        setFormErrors((prevErrors) => ({ ...prevErrors, confirmPassword: '' }));
       }
 
       if (
-        email.includes('@') &&
-        mobileNo.length === 11 &&
-        password.length >= 8 &&
-        password === confirmPassword
+        formFields.email.includes('@') &&
+        formFields.mobileNo.length === 11 &&
+        formFields.password.length >= 8 &&
+        formFields.password === formFields.confirmPassword
       ) {
         setIsActive(true);
       } else {
@@ -58,27 +74,27 @@ export default function Register() {
     } else {
       setIsActive(false);
 
-      if (firstName === '') {
-        setFirstNameError('First name cannot be empty');
+      if (formFields.firstName === '') {
+        setFormErrors((prevErrors) => ({ ...prevErrors, firstName: 'First name cannot be empty' }));
       }
 
-      if (lastName === '') {
-        setLastNameError('Last name cannot be empty');
+      if (formFields.lastName === '') {
+        setFormErrors((prevErrors) => ({ ...prevErrors, lastName: 'Last name cannot be empty' }));
       }
 
-      if (email === '') {
-        setEmailError('Email cannot be empty');
+      if (formFields.email === '') {
+        setFormErrors((prevErrors) => ({ ...prevErrors, email: 'Email cannot be empty' }));
       }
 
-      if (mobileNo === '') {
-        setMobileNoError('Mobile number cannot be empty');
+      if (formFields.mobileNo === '') {
+        setFormErrors((prevErrors) => ({ ...prevErrors, mobileNo: 'Mobile number cannot be empty' }));
       }
 
-      if (password === '') {
-        setPasswordError('Password cannot be empty');
+      if (formFields.password === '') {
+        setFormErrors((prevErrors) => ({ ...prevErrors, password: 'Password cannot be empty' }));
       }
     }
-  }, [firstName, lastName, email, mobileNo, password, confirmPassword]);
+  }, [formFields.firstName, formFields.lastName, formFields.email, formFields.mobileNo, formFields.password, formFields.confirmPassword]);
 
   function registerUser(event) {
     event.preventDefault();
@@ -87,11 +103,11 @@ export default function Register() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        mobileNo: mobileNo,
-        password: password,
+        firstName: formFields.firstName,
+        lastName: formFields.lastName,
+        email: formFields.email,
+        mobileNo: formFields.mobileNo,
+        password: formFields.password,
       }),
     })
       .then((res) => {
@@ -103,12 +119,14 @@ export default function Register() {
       .then((data) => {
         console.log(data);
         if (data.message === 'Registered Successfully') {
-          setFirstName('');
-          setLastName('');
-          setEmail('');
-          setMobileNo('');
-          setPassword('');
-          setConfirmPassword('');
+          setFormFields({
+            firstName: '',
+            lastName: '',
+            email: '',
+            mobileNo: '',
+            password: '',
+            confirmPassword: '',
+          });
           alert('Registration Successful');
         } else {
           alert('Something went wrong');
@@ -122,10 +140,7 @@ export default function Register() {
 
   return (
     <div className="d-flex justify-content-center align-items-center bg-secondary py-4 ">
-      <Form
-        onSubmit={(event) => registerUser(event)}
-        className="bg-white p-3 rounded w-25 font-details"
-      >
+      <Form onSubmit={(event) => registerUser(event)} className="bg-white p-3 rounded w-25 font-details">
         <h1 className="mb-3 text-center font-highlight">Register</h1>
 
         <Form.Group className="mb-2">
@@ -134,12 +149,10 @@ export default function Register() {
             type="text"
             placeholder="Enter First Name"
             required
-            onChange={(event) => {
-              setFirstName(event.target.value);
-            }}
+            onChange={(event) => setFormFields((prevFields) => ({ ...prevFields, firstName: event.target.value }))}
             className="rounded-0 font-details"
           />
-          {firstNameError && <div className="text-danger">{firstNameError}</div>}
+          {formErrors.firstName && <div className="text-danger">{formErrors.firstName}</div>}
         </Form.Group>
 
         <Form.Group className="mb-2">
@@ -148,12 +161,10 @@ export default function Register() {
             type="text"
             placeholder="Enter Last Name"
             required
-            onChange={(event) => {
-              setLastName(event.target.value);
-            }}
+            onChange={(event) => setFormFields((prevFields) => ({ ...prevFields, lastName: event.target.value }))}
             className="rounded-0 font-details"
           />
-          {lastNameError && <div className="text-danger">{lastNameError}</div>}
+          {formErrors.lastName && <div className="text-danger">{formErrors.lastName}</div>}
         </Form.Group>
 
         <Form.Group className="mb-2">
@@ -162,12 +173,10 @@ export default function Register() {
             type="email"
             placeholder="Enter Email"
             required
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
+            onChange={(event) => setFormFields((prevFields) => ({ ...prevFields, email: event.target.value }))}
             className="rounded-0 font-details"
           />
-          {emailError && <div className="text-danger">{emailError}</div>}
+          {formErrors.email && <div className="text-danger">{formErrors.email}</div>}
         </Form.Group>
 
         <Form.Group className="mb-2">
@@ -176,12 +185,10 @@ export default function Register() {
             type="text"
             placeholder="Enter MobileNo"
             required
-            onChange={(event) => {
-              setMobileNo(event.target.value);
-            }}
+            onChange={(event) => setFormFields((prevFields) => ({ ...prevFields, mobileNo: event.target.value }))}
             className="rounded-0 font-details"
           />
-          {mobileNoError && <div className="text-danger">{mobileNoError}</div>}
+          {formErrors.mobileNo && <div className="text-danger">{formErrors.mobileNo}</div>}
         </Form.Group>
 
         <Form.Group className="mb-2">
@@ -190,12 +197,10 @@ export default function Register() {
             type="password"
             placeholder="Enter Password"
             required
-            onChange={(event) => {
-              setPassword(event.target.value);
-            }}
+            onChange={(event) => setFormFields((prevFields) => ({ ...prevFields, password: event.target.value }))}
             className="rounded-0 font-details"
           />
-          {passwordError && <div className="text-danger">{passwordError}</div>}
+          {formErrors.password && <div className="text-danger">{formErrors.password}</div>}
         </Form.Group>
 
         <Form.Group className="mb-2">
@@ -204,11 +209,10 @@ export default function Register() {
             type="password"
             placeholder="Confirm Password"
             required
-            onChange={(event) => {
-              setConfirmPassword(event.target.value);
-            }}
+            onChange={(event) => setFormFields((prevFields) => ({ ...prevFields, confirmPassword: event.target.value }))}
             className="rounded-0 font-details"
           />
+          {formErrors.confirmPassword && <div className="text-danger">{formErrors.confirmPassword}</div>}
         </Form.Group>
 
         {isActive === true ? (
