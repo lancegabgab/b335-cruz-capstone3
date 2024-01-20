@@ -1,31 +1,28 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
+import Banner1 from '../images/banner/Banner1.png';
 
 export default function About() {
-  const About = () => {
-    // Function to display information about the web app
-    console.log("This is the about page of Pet Paradise.");
-    // You can include additional logic or content here.
+  // Invented history about Pet Paradise Toy Shop
+  const petParadiseHistory = `
+    Pet Paradise Toy Shop has a rich history that began in the quaint town of Meadowville in 1985. Founded by the visionary entrepreneur, Emily Harper, the shop initially started as a small, family-owned business dedicated to providing unique and high-quality toys for pets. Emily's passion for animals and her desire to enhance the bond between pets and their owners fueled the growth of Pet Paradise Toy Shop over the years.
+
+    As the shop gained popularity for its exceptional selection of toys, grooming products, and accessories, Pet Paradise expanded its reach beyond Meadowville. The commitment to offering innovative and safe toys for pets of all kinds became the hallmark of the brand. With a focus on customer satisfaction and the well-being of furry companions, Pet Paradise Toy Shop has evolved into a beloved destination for pet owners seeking not only entertainment for their pets but also a trusted source for pet care advice. Today, Pet Paradise Toy Shop stands as a testament to Emily Harper's dedication, and it continues to thrive as a cherished establishment that brings joy to both pets and their human companions.
+  `;
+  const bannerStyle = {
+    height: '33.33vh', 
+    width: '100%',     
+    display: 'block',
+    margin: 'auto',
   };
 
-  // Invented history about Pet Paradise web app
-  const petParadiseHistory = `
-    Welcome to Pet Paradise, where the journey began with a simple idea - to create a virtual haven for pet lovers around the world. Our story dates back to 2018, when a group of passionate animal enthusiasts came together with a shared vision.
-
-    In the early days, Pet Paradise started as a small community forum, where pet owners exchanged tips, shared adorable pictures, and sought advice from fellow members. As the community grew, so did our ambitions.
-
-    In 2020, we embarked on a mission to enhance the pet ownership experience. We envisioned a comprehensive platform that not only connects pet lovers but also offers valuable resources, tools, and services. After months of dedicated development, Pet Paradise emerged as a feature-rich web app designed to cater to the diverse needs of pet owners.
-
-    Today, Pet Paradise is a one-stop destination for everything related to pets. Whether you're seeking expert advice on pet care, discovering the latest pet trends, or connecting with like-minded individuals, our platform is here to make your journey as a pet parent more enjoyable.
-
-    We believe in the power of community, the joy of sharing, and the unconditional love that pets bring into our lives. Join us in the Pet Paradise family, where every wag, meow, chirp, or purr is celebrated!
-
-    Cheers to the past, present, and future of Pet Paradise - where the love for pets knows no bounds.
-  `;
-
   return (
-    <div>
-      <h1 className="my-5 text-center">About Pet Paradise</h1>
-      <p>{petParadiseHistory}</p>
-    </div>
+    <Container className="my-5">
+      <h1 className="text-center" style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#333' }}>
+        About Pet Paradise
+      </h1>
+      <img src={Banner1} alt="Pet Paradise Banner" style={bannerStyle} />
+      <p style={{ fontSize: '1.2rem', lineHeight: '1.6', color: '#555' }}>{petParadiseHistory}</p>
+    </Container>
   );
 }
