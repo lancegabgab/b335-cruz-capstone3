@@ -2,6 +2,7 @@ import './style.css';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Register from './pages/Register';
+import Home from './pages/Home';
 import About from './pages/About';
 import AppNavBar from './components/AppNavBar';
 import Product from './pages/Product';
@@ -75,6 +76,10 @@ function App() {
                   <Route
                     path="/users"
                     element={<Users />}
+                  />
+                  <Route
+                    path="/home"
+                    element={<Home />}
                   />
                   <Route
                     path="/products/all"
