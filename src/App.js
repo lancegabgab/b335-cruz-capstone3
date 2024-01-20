@@ -10,6 +10,7 @@ import Users from './pages/Users';
 import AllOrders from './pages/AllOrders';
 import Cart from './pages/Cart';
 import UserView from './components/UserView';
+import MyOrders from './pages/MyOrders'
 //import GetSpecificProduct from './pages/GetSpecificProduct';
 import { UserProvider } from './UserContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -90,6 +91,10 @@ function App() {
                   <Route
                     path="/products/users"
                     element={<UserView />}
+                  />
+                  <Route
+                    path="/myorders"
+                    element={<MyOrders />}
                   />
                   <Route
                     path="/about"

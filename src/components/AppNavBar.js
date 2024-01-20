@@ -15,118 +15,62 @@ const AppNavBar = () => {
       id="bgColor1"
     >
       <Container>
-        <Navbar.Brand
-          as={NavLink}
-          to="/"
-        >
-          <img
-            src={logo}
-            alt=" Pet Paradise"
-            id="navBarLogo"
-          ></img>
+        <Navbar.Brand as={NavLink}  to="/">
+          <img src={logo} alt=" Pet Paradise" id="navBarLogo"></img>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link
-              as={NavLink}
-              to="/"
-              id="fontColor1"
-            >
+            <Nav.Link as={NavLink} to="/" id="fontColor1">
               Home
             </Nav.Link>
-            <Nav.Link
-              as={NavLink}
-              to="/about"
-              id="fontColor1"
-            >
+            <Nav.Link as={NavLink} to="/about" id="fontColor1">
               About
             </Nav.Link>
             {user.id !== null ? (
               user.isAdmin === true ? (
                 <>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/products/all"
-                    id="fontColor1"
-                  >
+                  <Nav.Link as={NavLink} to="/products/all" id="fontColor1">
                     Products
                   </Nav.Link>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/users"
-                    id="fontColor1"
-                  >
+                  <Nav.Link as={NavLink} to="/users" id="fontColor1">
                     Users
                   </Nav.Link>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/allorders"
-                    id="fontColor1"
-                  >
+                  <Nav.Link as={NavLink} to="/allorders" id="fontColor1">
                     Orders
                   </Nav.Link>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/profile"
-                    id="fontColor1"
-                  >
+                  <Nav.Link as={NavLink} to="/profile" id="fontColor1">
                     Profile
                   </Nav.Link>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/logout"
-                    id="fontColor1"
-                  >
+                  <Nav.Link as={NavLink} to="/logout" id="fontColor1">
                     Logout
                   </Nav.Link>
                 </>
               ) : (
                 <>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/products/users"
-                    id="fontColor1"
-                  >
+                  <Nav.Link as={NavLink} to="/products/users" id="fontColor1">
                     Products
                   </Nav.Link>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/cart"
-                    id="fontColor1"
-                  >
+                  <Nav.Link as={NavLink} to="/cart" id="fontColor1">
                     Cart
                   </Nav.Link>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/profile"
-                    id="fontColor1"
-                  >
+                  <Nav.Link as={NavLink} to="/myorders" id="fontColor1">
+                    Orders
+                  </Nav.Link>
+                  <Nav.Link as={NavLink} to="/profile" id="fontColor1">
                     Profile
                   </Nav.Link>
-                  <Nav.Link
-                    as={NavLink}
-                    to="/logout"
-                    id="fontColor1"
-                  >
+                  <Nav.Link as={NavLink} to="/logout" id="fontColor1">
                     Logout
                   </Nav.Link>
                 </>
               )
             ) : (
               <>
-                <Nav.Link
-                  as={NavLink}
-                  to="/login"
-                  id="fontColor1"
-                >
+                <Nav.Link as={NavLink} to="/login" id="fontColor1">
                   Login
                 </Nav.Link>
-                <Nav.Link
-                  as={NavLink}
-                  to="/"
-                  id="fontColor1"
-                >
+                <Nav.Link as={NavLink} to="/" id="fontColor1">
                   Register
                 </Nav.Link>
               </>
