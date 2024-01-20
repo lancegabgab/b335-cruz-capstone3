@@ -10,7 +10,7 @@ export default function About() {
     As the shop gained popularity for its exceptional selection of toys, grooming products, and accessories, Pet Paradise expanded its reach beyond Meadowville. The commitment to offering innovative and safe toys for pets of all kinds became the hallmark of the brand. With a focus on customer satisfaction and the well-being of furry companions, Pet Paradise Toy Shop has evolved into a beloved destination for pet owners seeking not only entertainment for their pets but also a trusted source for pet care advice. Today, Pet Paradise Toy Shop stands as a testament to Emily Harper's dedication, and it continues to thrive as a cherished establishment that brings joy to both pets and their human companions.
   `;
   const bannerStyle = {
-    height: '33.33vh', 
+    height: '46vh', 
     width: '100%',     
     display: 'block',
     margin: 'auto',
