@@ -32,39 +32,39 @@ const MyOrders = () => {
   };
 
   return (
-    <Container className="mt-4">
-      <h2>Your Order History</h2>
-      <Table striped bordered hover>
+    <Container className="mt-4 d-flex flex-column align-items-center">
+      <h2 className="mb-4">Your Order History</h2>
+      <Table striped bordered hover className="w-75">
         <thead>
           <tr>
-            <th>Order Date</th>
-            <th>Total Price</th>
-            <th>Product ID</th>
-            <th>Quantity</th>
-            <th>Price</th>
+            <th className="text-center">Order Date</th>
+            <th className="text-center">Total Price</th>
+            <th className="text-center">Product ID</th>
+            <th className="text-center">Quantity</th>
+            <th className="text-center">Price</th>
           </tr>
         </thead>
         <tbody>
           {orders && orders.length > 0 ? (
             orders.map((order) => (
               <tr key={order._id}>
-                <td>{new Date(order.orderDate).toLocaleString()}</td>
-                <td>${order.totalPrice}</td>
-                <td>
+                <td className="text-center">{new Date(order.orderDate).toLocaleString()}</td>
+                <td className="text-center">${order.totalPrice}</td>
+                <td className="text-center">
                   {order.productsOrdered.map((product) => (
                     <div key={product.productId}>
                       {product.productId} 
                     </div>
                   ))}
                 </td>
-                <td>
+                <td className="text-center">
                   {order.productsOrdered.map((product) => (
                     <div key={product.productId}>
                       {product.quantity}
                     </div>
                   ))}
                 </td>
-                <td>
+                <td className="text-center">
                   {order.productsOrdered.map((product) => (
                     <div key={product.productId}>
                       ${product.price}
