@@ -22,7 +22,8 @@ const SearchByPrice = ({ onSearch }) => {
 
       if (!response.ok) {
         console.error('Error:', response.statusText);
-        setError('Error searching products by price range');
+        const errorMessage = await response.text(); // Get the error message from the response body
+        setError(`Error searching products by price range: ${errorMessage}`);
         setLoading(false);
         return;
       }
@@ -32,7 +33,7 @@ const SearchByPrice = ({ onSearch }) => {
       setLoading(false);
     } catch (error) {
       console.error('Error:', error);
-      setError('Error searching products by price range');
+      setError(`Error searching products by price range: ${error.message}`);
       setLoading(false);
     }
   };
@@ -40,20 +41,22 @@ const SearchByPrice = ({ onSearch }) => {
   return (
     <div>
       <Form>
-        <Form.Group controlId="formSearchPrice">
+        <Form.Group controlId="formSearchPrice" className="mb-3">
           <Form.Label>Search by Price Range:</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Enter minimum price"
-            value={minPrice}
-            onChange={(e) => setMinPrice(e.target.value)}
-          />
-          <Form.Control
-            type="number"
-            placeholder="Enter maximum price"
-            value={maxPrice}
-            onChange={(e) => setMaxPrice(e.target.value)}
-          />
+          <div className="d-flex gap-2">
+            <Form.Control
+              type="number"
+              placeholder="Enter minimum price"
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
+            />
+            <Form.Control
+              type="number"
+              placeholder="Enter maximum price"
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+            />
+          </div>
         </Form.Group>
         <Button variant="primary" onClick={handleSearch}>
           Search by Price

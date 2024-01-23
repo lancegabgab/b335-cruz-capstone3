@@ -45,7 +45,7 @@ const SearchByName = () => {
   return (
     <div>
       <Form>
-        <Form.Group controlId="formSearchName">
+        <Form.Group controlId="formSearchName" className="mb-3">
           <Form.Label>Search by Name:</Form.Label>
           <Form.Control
             type="text"
