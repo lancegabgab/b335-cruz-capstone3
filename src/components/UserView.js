@@ -109,23 +109,23 @@ export default function UserView() {
         <Table striped bordered hover responsive>
           <thead>
             <tr className="text-center">
-              <th>ID</th>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Action</th>
+              <th className="text-center">ID</th>
+              <th className="text-center">Name</th>
+              <th className="text-center">Description</th>
+              <th className="text-center">Price</th>
+              <th className="text-center">Action</th>
             </tr>
           </thead>
 
           <tbody>
             {activeProducts.map(product => (
               <tr key={product._id}>
-                <td>{product._id}</td>
-                <td>{product.name}</td>
-                <td>{product.description}</td>
-                <td>{product.price}</td>
+                <td className="text-center">{product._id}</td>
+                <td className="text-center">{product.name}</td>
+                <td className="text-center">{product.description}</td>
+                <td className="text-center">{product.price}</td>
                 <td>
-                  <Button
+                  <Button className="text-center"
                     variant="primary"
                     onClick={() => addToCart(product._id, 1)} // Assuming quantity is 1 for simplicity
                   >
