@@ -52,8 +52,12 @@ const Cart = () => {
       // Your logic for editing quantity
       // ...
 
-      // Fetch updated cart after editing quantity
-      await fetchUserCart();
+      // Update local state without fetching the entire cart
+      setCart((prevCart) =>
+        prevCart.map((item) =>
+          item.productId === productId ? { ...item, quantity: newQuantity } : item
+        )
+      );
     } catch (error) {
       console.error('Error editing quantity:', error);
       setError('Failed to edit item quantity in cart');
@@ -62,7 +66,7 @@ const Cart = () => {
     }
   };
 
-  const handleRemoveProduct = async (productId, onRemove) => {
+  const handleRemoveProduct = async (productId) => {
     try {
       setLoading(true);
 
@@ -80,8 +84,8 @@ const Cart = () => {
           title: 'Successfully Removed',
         });
 
-        // Successfully removed product, trigger parent callback to fetch updated cart
-        onRemove();
+        // Update local state without fetching the entire cart
+        setCart((prevCart) => prevCart.filter((item) => item.productId !== productId));
       }
     } catch (error) {
       console.error('Error removing product from cart:', error);
@@ -112,6 +116,9 @@ const Cart = () => {
           title: 'Order Placed!',
           text: 'Your order has been placed successfully.',
         });
+
+        // Clear the local cart after successful checkout
+        setCart([]);
       } else {
         const error = await response.json();
         console.error('Failed to create order:', error);
@@ -152,6 +159,9 @@ const Cart = () => {
           title: 'Cart Cleared',
           text: 'Your cart has been successfully cleared!',
         });
+
+        // Clear the local cart after successful clear
+        setCart([]);
       } else {
         const errorData = await response.json();
         console.error('Error clearing cart:', errorData.message);
@@ -189,8 +199,8 @@ const Cart = () => {
     <Container>
       <h2>Your Shopping Cart</h2>
 
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
+      {loading ? <p>Loading...</p> : null}
+      {error ? <p>Error: {error}</p> : null}
 
       <Table striped bordered responsive>
         <thead>
@@ -211,7 +221,7 @@ const Cart = () => {
                 <input
                   type="number"
                   value={item.quantity}
-                  onChange={(e) => handleEditQuantity(item.productId, e.target.value)}
+                  onChange={(e) => handleEditQuantity(item.productId, parseInt(e.target.value, 10) || 0)}
                 />
               </td>
               <td>{calculateSubtotal(item.price, item.quantity)}</td>
