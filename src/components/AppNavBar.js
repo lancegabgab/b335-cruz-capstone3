@@ -8,25 +8,24 @@ import logo from '../images/componentPhotos/petParadiseTextNoBg.png';
 
 const AppNavBar = () => {
   const { user } = useContext(UserContext);
+
   return (
-    <Navbar
-      expand="lg"
-      // className="bg-body-tertiary"
-      id="bgColor1"
-    >
+    <Navbar expand="lg" id="bgColor1">
       <Container>
-        <Navbar.Brand as={NavLink}  to="/">
-          <img src={logo} alt=" Pet Paradise" id="navBarLogo"></img>
+        <Navbar.Brand as={NavLink} to="/">
+          <img src={logo} alt="Pet Paradise" id="navBarLogo" />
         </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+          <Nav className="ms-auto"> 
             <Nav.Link as={NavLink} to="/home" id="fontColor1">
               Home
             </Nav.Link>
             <Nav.Link as={NavLink} to="/about" id="fontColor1">
               About
             </Nav.Link>
+
             {user.id !== null ? (
               user.isAdmin === true ? (
                 <>
