@@ -43,26 +43,26 @@ const AllOrders = () => {
     <Container>
       {user.isAdmin ? (
         <div>
-          <h2>Admin Orders</h2>
+          <h1 className="text-center">All user's orders:</h1>
           {loading ? (
             <p>Loading orders...</p>
           ) : (
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>User</th>
-                  <th>Total Price</th>
-                  <th>Order Date</th>
-                  <th>Products</th>
+                  <th className="text-center">User</th>
+                  <th className="text-center">Total Price</th>
+                  <th className="text-center">Order Date</th>
+                  <th className="text-center">Products</th>
                 </tr>
               </thead>
               <tbody>
                 {orders.map((order, index) => (
                   <tr key={order._id}>
-                    <td>{order.user}</td>
-                    <td>{order.totalPrice}</td>
-                    <td>{order.orderDate}</td>
-                    <td>
+                    <td className="text-center">{order.user}</td>
+                    <td className="text-center">{order.totalPrice}</td>
+                    <td className="text-center">{order.orderDate}</td>
+                    <td className="text-center">
                       <Button onClick={toggleProductListVisibility}>
                         {isProductListVisible ? 'Hide' : 'View'} Product List
                       </Button>
