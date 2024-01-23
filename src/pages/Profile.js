@@ -1,16 +1,19 @@
-import { useState, useEffect, useContext } from 'react';
-import { Row, Col } from 'react-bootstrap';
-import UserContext from '../UserContext';
+import React, { useState, useEffect, useContext } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import { useNavigate, Navigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import ResetPassword from '../components/ResetPassword';
+import UserContext from '../UserContext';
 
 export default function Profile() {
   const { user } = useContext(UserContext);
-
   const [details, setDetails] = useState({});
 
   useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
+  const fetchUserDetails = () => {
     fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('access')}`,
@@ -18,53 +21,51 @@ export default function Profile() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        // Set the user states values with the user details upon successful login.
         if (typeof data._id !== 'undefined') {
           setDetails(data);
         } else if (data.error === 'User not found') {
-          Swal.fire({
-            title: 'User not found',
-            icon: 'error',
-            text: 'Something went wrong, kindly contact us for assistance.',
-          });
+          showError('User not found');
         } else {
-          Swal.fire({
-            title: 'Something went wrong',
-            icon: 'error',
-            text: 'Something went wrong, kindly contact us for assistance.',
-          });
+          showError('Something went wrong');
         }
+      })
+      .catch((error) => {
+        console.error('Error fetching user details:', error);
+        showError('Failed to fetch user details');
       });
-  }, []);
+  };
+
+  const showError = (message) => {
+    Swal.fire({
+      title: 'Error',
+      icon: 'error',
+      text: message,
+    });
+  };
 
   return (
-    // (user.email === null) ?
-    // <Navigate to="/courses" />
-    // :
-    user.id === null && localStorage.getItem('access') === null ? (
-      <Navigate to="/courses" />
-    ) : (
-      <>
-        <Row>
-          <Col className="p-5 bg-primary text-white">
-            <h1 className="my-5 ">Profile</h1>
-            {/* <h2 className="mt-3">James Dela Cruz</h2> */}
-            <h2 className="mt-3">{`${details.firstName} ${details.lastName}`}</h2>
-            <hr />
-            <h4>Contacts</h4>
+    <Container>
+      {user.id === null && localStorage.getItem('access') === null ? (
+        <Navigate to="/courses" />
+      ) : (
+        <Row className="mt-5">
+          <Col md={6} className="bg-primary text-white p-4 rounded">
+            <h1 className="mb-4">Profile</h1>
+            <h2>{`${details.firstName} ${details.lastName}`}</h2>
+            <hr className="bg-light" />
+            <h4 className="mt-3">Contacts</h4>
             <ul>
-              {/* <li>Email: {user.email}</li> */}
               <li>Email: {details.email}</li>
-              {/* <li>Mobile No: 09266772411</li> */}
               <li>Mobile No: {details.mobileNo}</li>
             </ul>
           </Col>
+          <Col md={6}>
+            <div className="bg-black text-white p-4 rounded">
+              <ResetPassword />
+            </div>
+          </Col>
         </Row>
-        <Row>
-          <ResetPassword />
-        </Row>
-      </>
-    )
+      )}
+    </Container>
   );
 }
