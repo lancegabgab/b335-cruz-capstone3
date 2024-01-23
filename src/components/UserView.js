@@ -91,8 +91,15 @@ export default function UserView() {
   return (
     <Container>
       <h1 className="text-center my-4">Active Products</h1>
-      <SearchByName />
-      <SearchByPrice />
+
+      <div className="row">
+        <div className="col-md-6 mb-3">
+          <SearchByName />
+        </div>
+        <div className="col-md-6 mb-3">
+          <SearchByPrice />
+        </div>
+      </div>
 
       {loading && <Spinner animation="border" role="status" />}
 
