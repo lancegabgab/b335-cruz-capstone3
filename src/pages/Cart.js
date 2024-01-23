@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Container, Table, Button } from 'react-bootstrap';
+import { Container, Table, Button, Row, Col, Spinner } from 'react-bootstrap';
 import UserContext from '../UserContext';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Swal from 'sweetalert2';
@@ -196,57 +196,67 @@ const Cart = () => {
   };
 
   return (
-    <Container>
-      <h2>Your Shopping Cart</h2>
+    <Container className="d-flex justify-content-center">
+      <Row className="w-100">
+        <Col>
+          <h2 className="text-center mt-3">Your Shopping Cart</h2>
 
-      {loading ? <p>Loading...</p> : null}
-      {error ? <p>Error: {error}</p> : null}
+          {loading ? (
+            <div className="text-center">
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </div>
+          ) : null}
+          {error ? <p className="text-danger">Error: {error}</p> : null}
 
-      <Table striped bordered responsive>
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cart.map((item) => (
-            <tr key={item.productId}>
-              <td>{item.productId}</td>
-              <td>{item.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
-              <td>
-                <input
-                  type="number"
-                  value={item.quantity}
-                  onChange={(e) => handleEditQuantity(item.productId, parseInt(e.target.value, 10) || 0)}
-                />
-              </td>
-              <td>{calculateSubtotal(item.price, item.quantity)}</td>
-              <td>
-                <Button variant="danger" onClick={() => handleRemoveProduct(item.productId)}>
-                  Remove
-                </Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+          <Table striped bordered responsive>
+            <thead>
+              <tr>
+                <th className="text-center">Product</th>
+                <th className="text-center">Price</th>
+                <th className="text-center">Quantity</th>
+                <th className="text-center">Subtotal</th>
+                <th className="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map((item) => (
+                <tr key={item.productId}>
+                  <td className="text-center">{item.productId}</td>
+                  <td className="text-center">{item.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                  <td className="text-center">
+                    <input
+                      type="number"
+                      value={item.quantity}
+                      onChange={(e) => handleEditQuantity(item.productId, parseInt(e.target.value, 10) || 0)}
+                    />
+                  </td>
+                  <td className="text-center">{calculateSubtotal(item.price, item.quantity)}</td>
+                  <td className="text-center">
+                    <Button variant="danger" onClick={() => handleRemoveProduct(item.productId)}>
+                      Remove
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
 
-      <div>
-        <Button variant="secondary" onClick={handleClearCart}>
-          Clear Cart
-        </Button>
-        <Button variant="primary" onClick={handleCheckout}>
-          Checkout
-        </Button>
-      </div>
+          <div className="d-flex space-between">
+            <Button variant="secondary" onClick={handleClearCart}>
+              Clear Cart
+            </Button>
+            <Button variant="primary" onClick={handleCheckout}>
+              Checkout
+            </Button>
+          </div>
 
-      <div>
-        <p>Total: {calculateTotal()}</p>
-      </div>
+          <div className="text-center">
+            <p>Total: {calculateTotal()}</p>
+          </div>
+        </Col>
+      </Row>
     </Container>
   );
 };
