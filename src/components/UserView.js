@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Table, Spinner, Alert, Button } from 'react-bootstrap';
+import { Container, Table, Spinner, Alert, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
-import SearchByPrice from './SearchByPrice';
 import SearchByName from './SearchByName';
+import SearchByPrice from './SearchByPrice';
 
 export default function UserView() {
   const [activeProducts, setActiveProducts] = useState([]);
@@ -89,9 +89,9 @@ export default function UserView() {
   }, []);
 
   return (
-    <>
+    <Container>
       <h1 className="text-center my-4">Active Products</h1>
-      <SearchByName /> 
+      <SearchByName />
       <SearchByPrice />
 
       {loading && <Spinner animation="border" role="status" />}
@@ -130,6 +130,6 @@ export default function UserView() {
           </tbody>
         </Table>
       )}
-    </>
+    </Container>
   );
 }
