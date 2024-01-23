@@ -218,7 +218,7 @@ export default function AdminView() {
   return (
     <Container className="text-center">
       <h1 className="text-center my-4">Admin Dashboard</h1>
-      <Button variant="outline-primary" onClick={handleAddProductClick}>
+      <Button className="mb-3" variant="outline-primary" onClick={handleAddProductClick}>
         Add Product
       </Button>
       <Table striped bordered hover responsive>
