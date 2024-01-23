@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Container, Table, Button } from 'react-bootstrap';
 import UserContext from '../UserContext';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import Swal from 'sweetalert2';
@@ -43,6 +43,7 @@ const Cart = () => {
   useEffect(() => {
     fetchUserCart();
   }, [user]);
+
   const handleEditQuantity = async (productId, newQuantity) => {
     setLoading(true);
     setError(null);
@@ -74,30 +75,23 @@ const Cart = () => {
       });
 
       if (response.ok) {
-
         Swal.fire({
           icon: 'success',
           title: 'Successfully Removed',
         });
+
         // Successfully removed product, trigger parent callback to fetch updated cart
         onRemove();
-
-        // Show success alert
-        Swal.fire({
-          icon: 'success',
-          title: 'Successfully Removed',
-        });
       }
     } catch (error) {
-      // Catch any errors that occur during the asynchronous operation and log them
       console.error('Error removing product from cart:', error);
     } finally {
       setLoading(false);
     }
   };
-    const handleCheckout = async () => {
+
+  const handleCheckout = async () => {
     try {
-      // Assuming you have an API endpoint to handle order creation
       const response = await fetch(`${process.env.REACT_APP_API_URL}/order/checkout`, {
         method: 'POST',
         headers: {
@@ -105,7 +99,7 @@ const Cart = () => {
           Authorization: `Bearer ${localStorage.getItem('access')}`,
         },
         body: JSON.stringify({
-          productsOrdered: cart, // Use the cart items for the productsOrdered field
+          productsOrdered: cart,
         }),
       });
 
@@ -113,40 +107,32 @@ const Cart = () => {
         const result = await response.json();
         console.log('Order created successfully:', result);
 
-        // Show SweetAlert2 success message
         Swal.fire({
           icon: 'success',
           title: 'Order Placed!',
           text: 'Your order has been placed successfully.',
         });
-
-        // Handle other success actions if needed
       } else {
         const error = await response.json();
         console.error('Failed to create order:', error);
 
-        // Show SweetAlert2 error message
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: 'Failed to place the order. Please try again.',
         });
-
-        // Handle other error actions if needed
       }
     } catch (error) {
       console.error('Error in handleCheckout:', error);
 
-      // Show SweetAlert2 error message for unexpected errors
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'An unexpected error occurred. Please try again later.',
       });
-
-      // Handle other unexpected error actions if needed
     }
   };
+
   const handleClearCart = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/cart/clear-cart`, {
@@ -159,10 +145,8 @@ const Cart = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // Handle the data accordingly
         console.log(data.message);
 
-        // Show SweetAlert2 success message
         Swal.fire({
           icon: 'success',
           title: 'Cart Cleared',
@@ -172,7 +156,6 @@ const Cart = () => {
         const errorData = await response.json();
         console.error('Error clearing cart:', errorData.message);
 
-        // Show SweetAlert2 error message
         Swal.fire({
           icon: 'error',
           title: 'Error',
@@ -182,7 +165,6 @@ const Cart = () => {
     } catch (error) {
       console.error('Error clearing cart:', error.message);
 
-      // Show SweetAlert2 error message for network errors
       Swal.fire({
         icon: 'error',
         title: 'Network Error',
@@ -204,7 +186,7 @@ const Cart = () => {
   };
 
   return (
-    <div>
+    <Container>
       <h2>Your Shopping Cart</h2>
 
       {loading && <p>Loading...</p>}
@@ -255,7 +237,7 @@ const Cart = () => {
       <div>
         <p>Total: {calculateTotal()}</p>
       </div>
-    </div>
+    </Container>
   );
 };
 
