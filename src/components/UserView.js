@@ -1,86 +1,87 @@
 import { useState, useEffect } from 'react';
-import { Container, Table, Spinner, Alert, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import SearchByName from './SearchByName';
 import SearchByPrice from './SearchByPrice';
 
+import {
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+  Button,
+  Grid,
+  CircularProgress,
+  Alert,
+  Container
+} from '@mui/material';
+
 export default function UserView() {
   const [activeProducts, setActiveProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingProducts, setLoadingProducts] = useState(true);
+  const [addingToCart, setAddingToCart] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchActiveProducts = () => {
-    setLoading(true);
-    setError(null);
-
-    fetch(`${process.env.REACT_APP_API_URL}/products/`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('access')}`
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.product) {
-          setActiveProducts(data.product);
-        } else {
-          console.error('Invalid response structure:', data);
-          setError('Invalid response structure');
-        }
-      })
-      .catch(error => {
-        console.error('Error fetching active products:', error);
-        setError('Error fetching data');
-      })
-      .finally(() => setLoading(false));
-  };
-
-  const addToCart = async (productId, quantity) => {
-    setLoading(true);
+  const fetchActiveProducts = async () => {
+    setLoadingProducts(true);
     setError(null);
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/cart/add-to-cart`, {
-        method: 'POST',
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/products/`, {
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.getItem('access')}`
-        },
-        body: JSON.stringify({ productId, quantity })
+        }
       });
 
-      const data = await response.json();
+      const data = await res.json();
 
-      if (response.ok) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Added to Cart!',
-          text: 'Item has been added to your cart successfully.'
-        });
-
-        fetchActiveProducts(); // Refresh the product list after adding to the cart
+      if (data?.product) {
+        setActiveProducts(data.product);
       } else {
-        console.error('Failed to add item to cart:', data);
-        setError('Failed to add item to cart');
-
-        // Show error alert using SweetAlert2
-        Swal.fire({
-          icon: 'error',
-          title: 'Failed to Add to Cart',
-          text: 'There was an issue adding the item to your cart. Please try again.'
-        });
+        setError('Invalid response structure');
       }
-    } catch (error) {
-      console.error('Error in adding to cart:', error);
-      setError('Failed to add item to cart');
+    } catch (err) {
+      setError('Error fetching products');
+    } finally {
+      setLoadingProducts(false);
+    }
+  };
 
-      // Show error alert using SweetAlert2
+  const addToCart = async (productId, quantity = 1) => {
+    setAddingToCart(true);
+
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}/cart/add-to-cart`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('access')}`
+          },
+          body: JSON.stringify({ productId, quantity })
+        }
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || 'Failed to add to cart');
+      }
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Added to Cart!',
+        timer: 1200,
+        showConfirmButton: false
+      });
+    } catch (err) {
       Swal.fire({
         icon: 'error',
-        title: 'Failed to Add to Cart',
-        text: 'There was an error processing your request. Please try again.'
+        title: 'Error',
+        text: err.message
       });
     } finally {
-      setLoading(false);
+      setAddingToCart(false);
     }
   };
 
@@ -89,53 +90,68 @@ export default function UserView() {
   }, []);
 
   return (
-    <Container>
-      <h1 className="text-center my-4">Active Products</h1>
+    <Container sx={{ mt: 4 }}>
+      <Typography variant="h4" align="center" gutterBottom>
+        Products
+      </Typography>
 
-      <div className="row">
-        <div className="col-md-6 mb-3">
-          <SearchByName />
-        </div>
-        <div className="col-md-6 mb-3">
-          <SearchByPrice />
-        </div>
-      </div>
+      {loadingProducts && (
+        <Grid container justifyContent="center" sx={{ mt: 4 }}>
+          <CircularProgress />
+        </Grid>
+      )}
 
-      {loading && <Spinner animation="border" role="status" />}
+      {error && <Alert severity="error">{error}</Alert>}
 
-      {error && <Alert variant="danger">{error}</Alert>}
+      {!loadingProducts && !error && (
+        <Grid container spacing={3}>
+          {activeProducts.map(product => (
+            <Grid item xs={12} sm={6} md={4} key={product._id}>
+              <Card
+                sx={{
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  transition: '0.3s',
+                  '&:hover': { boxShadow: 6 }
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    {product.name}
+                  </Typography>
 
-      {!loading && !error && (
-        <Table striped bordered hover responsive>
-          <thead>
-            <tr className="text-center">
-              <th className="text-center">ID</th>
-              <th className="text-center">Name</th>
-              <th className="text-center">Description</th>
-              <th className="text-center">Price</th>
-              <th className="text-center">Action</th>
-            </tr>
-          </thead>
+                  {/* <Typography variant="body2" color="text.secondary">
+                    {product.description}
+                  </Typography> */}
 
-          <tbody>
-            {activeProducts.map(product => (
-              <tr key={product._id}>
-                <td className="text-center">{product._id}</td>
-                <td className="text-center">{product.name}</td>
-                <td className="text-center">{product.description}</td>
-                <td className="text-center">{product.price}</td>
-                <td>
-                  <Button className="text-center"
-                    variant="primary"
-                    onClick={() => addToCart(product._id, 1)} // Assuming quantity is 1 for simplicity
+                  <Typography
+                    variant="h6"
+                    color="primary"
+                    sx={{ mt: 2 }}
                   >
-                    Add to Cart
+                    ₱{product.price}
+                  </Typography>
+                </CardContent>
+
+                <CardActions>
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    disabled={addingToCart}
+                    onClick={() => addToCart(product._id)}
+                  >
+                    {addingToCart ? 'Adding...' : 'Add to Cart'}
                   </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      )}
+
+      {!loadingProducts && !error && activeProducts.length === 0 && (
+        <Alert severity="info">No products found</Alert>
       )}
     </Container>
   );
