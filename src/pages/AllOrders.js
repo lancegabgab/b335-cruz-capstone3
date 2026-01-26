@@ -60,7 +60,7 @@ const AllOrders = () => {
                 {orders.map((order, index) => (
                   <tr key={order._id}>
                     <td className="text-center">{order.user}</td>
-                    <td className="text-center">{order.totalPrice}</td>
+                    <td className="text-center">₱{order.totalPrice.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                     <td className="text-center">{order.orderDate}</td>
                     <td className="text-center">
                       <Button onClick={toggleProductListVisibility}>
@@ -72,7 +72,7 @@ const AllOrders = () => {
                             <li key={product.productId}>
                               <p>Product ID: {product.productId}</p>
                               <p>Quantity: {product.quantity}</p>
-                              <p>Price: {product.price}</p>
+                              <p>Price: ₱{product.price.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                             </li>
                           ))}
                         </ul>
