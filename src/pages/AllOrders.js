@@ -61,7 +61,7 @@ const AllOrders = () => {
                   <tr key={order._id}>
                     <td className="text-center">{order.user}</td>
                     <td className="text-center">₱{order.totalPrice.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                    <td className="text-center">{order.orderDate}</td>
+                    <td className="text-center">{new Date(order.orderDate).toLocaleString()}</td>
                     <td className="text-center">
                       <Button onClick={toggleProductListVisibility}>
                         {isProductListVisible ? 'Hide' : 'View'} Product List
