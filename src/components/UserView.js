@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import SearchByName from './SearchByName';
 import SearchByPrice from './SearchByPrice';
+import NoImage from '../images/NoImage.jpg';
 
 import {
   Card,
   CardContent,
+  CardMedia,
   CardActions,
   Typography,
   Button,
@@ -120,7 +122,11 @@ export default function UserView() {
                   <Typography variant="h6" gutterBottom>
                     {product.name}
                   </Typography>
-
+                  <CardMedia
+                    component="img"
+                    height="180"
+                    image={product.image ? product.image : NoImage}
+                  />
                   {/* <Typography variant="body2" color="text.secondary">
                     {product.description}
                   </Typography> */}
