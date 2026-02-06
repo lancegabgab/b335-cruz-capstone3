@@ -49,10 +49,6 @@ const Cart = () => {
     setError(null);
 
     try {
-      // Your logic for editing quantity
-      // ...
-
-      // Update local state without fetching the entire cart
       setCart((prevCart) =>
         prevCart.map((item) =>
           item.productId === productId ? { ...item, quantity: newQuantity } : item
@@ -184,15 +180,12 @@ const Cart = () => {
   };
 
   const calculateSubtotal = (price, quantity) => {
-    return (price * quantity).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+    return (price * quantity).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
 
   const calculateTotal = () => {
     const cartItems = cart || [];
-    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toLocaleString('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    });
+    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
 
   return (
@@ -224,7 +217,7 @@ const Cart = () => {
               {cart.map((item) => (
                 <tr key={item.productId}>
                   <td className="text-center">{item.productId}</td>
-                  <td className="text-center">{item.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                  <td className="text-center">{item.price.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                   <td className="text-center">
                     <input
                       type="number"
