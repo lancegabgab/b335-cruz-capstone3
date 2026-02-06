@@ -49,7 +49,7 @@ const MyOrders = () => {
             orders.map((order) => (
               <tr key={order._id}>
                 <td className="text-center">{new Date(order.orderDate).toLocaleString()}</td>
-                <td className="text-center">${order.totalPrice}</td>
+                <td className="text-center">{order.totalPrice.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                 <td className="text-center">
                   {order.productsOrdered.map((product) => (
                     <div key={product.productId}>
@@ -67,7 +67,7 @@ const MyOrders = () => {
                 <td className="text-center">
                   {order.productsOrdered.map((product) => (
                     <div key={product.productId}>
-                      ${product.price}
+                      {product.price.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </div>
                   ))}
                 </td>
