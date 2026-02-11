@@ -28,7 +28,7 @@ export default function Logout() {
           timer: 1500,
           showConfirmButton: false,
         }).then(() => {
-          navigate('/login');
+          navigate('/');
         });
       } else {
         navigate(-1);
