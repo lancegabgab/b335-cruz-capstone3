@@ -66,10 +66,10 @@ const AppNavBar = () => {
               )
             ) : (
               <>
-                <Nav.Link as={NavLink} to="/login" id="fontColor1">
+                <Nav.Link as={NavLink} to="/" id="fontColor1">
                   Login
                 </Nav.Link>
-                <Nav.Link as={NavLink} to="/" id="fontColor1">
+                <Nav.Link as={NavLink} to="/register" id="fontColor1">
                   Register
                 </Nav.Link>
               </>
