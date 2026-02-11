@@ -1,5 +1,6 @@
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import UserContext from '../UserContext';
@@ -9,6 +10,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [isActive, setIsActive] = useState(true);
   const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (email !== '' && password !== '') {
@@ -30,8 +32,7 @@ export default function Login() {
         email: email,
         password: password,
       }),
-    })
-      .then((response) => response.json())
+    }).then((response) => response.json())
       .then((data) => {
         if (data.access) {
           localStorage.setItem('access', data.access);
@@ -42,7 +43,11 @@ export default function Login() {
             icon: 'success',
             title: 'Success',
             text: 'You are now logged in',
-          });
+            timer: 1500,
+            showConfirmButton: false,
+          }).then(() => {
+          navigate('/products/all');
+        });;
         } else if (data.error === 'No Email Found') {
           // SweetAlert2 notification for email not found
           Swal.fire({
