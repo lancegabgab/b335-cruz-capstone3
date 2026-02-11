@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form, Container } from 'react-bootstrap';
 import Swal from 'sweetalert2';
+import NoImage from '../images/NoImage.jpg';
 
 export default function AdminView() {
   const [products, setProducts] = useState([]);
@@ -224,7 +225,7 @@ export default function AdminView() {
       <Table striped bordered hover responsive>
         <thead>
           <tr className="text-center">
-            <th>ID</th>
+            <th>Image</th>
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
@@ -236,10 +237,24 @@ export default function AdminView() {
         <tbody>
           {products.map((product) => (
             <tr key={product._id} className="text-center">
-              <td>{product._id}</td>
+              <td>
+                {product.image ? (
+                  <img 
+                    src={product.image} 
+                    alt="Product" 
+                    style={{ width: "60px", height: "60px", objectFit: "cover" }} 
+                  />
+                ) : (
+                  <img 
+                    src={NoImage} 
+                    alt="No Image" 
+                    style={{ width: "60px", height: "60px", objectFit: "cover" }} 
+                  />
+                )}
+              </td>
               <td>{product.name}</td>
               <td>{product.description}</td>
-              <td>{product.price}</td>
+              <td>{product.price.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
               <td className={product.isActive ? 'text-success' : 'text-danger'}>
                 {product.isActive ? 'Available' : 'Unavailable'}
               </td>
