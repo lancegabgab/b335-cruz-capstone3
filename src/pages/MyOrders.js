@@ -39,7 +39,7 @@ const MyOrders = () => {
           <tr>
             <th className="text-center">Order Date</th>
             <th className="text-center">Total Price</th>
-            <th className="text-center">Product ID</th>
+            <th className="text-center">Product</th>
             <th className="text-center">Quantity</th>
             <th className="text-center">Price</th>
           </tr>
@@ -53,7 +53,7 @@ const MyOrders = () => {
                 <td className="text-center">
                   {order.productsOrdered.map((product) => (
                     <div key={product.productId}>
-                      {product.productId} 
+                      {product.name} 
                     </div>
                   ))}
                 </td>
