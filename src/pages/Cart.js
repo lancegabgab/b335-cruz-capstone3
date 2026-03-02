@@ -157,7 +157,7 @@ const Cart = () => {
                     <Grid container alignItems="center" spacing={2}>
                       <Grid item xs={12} md={4}>
                         <Typography fontWeight="bold">
-                          {item.productId}
+                          {item.productId.name}
                         </Typography>
                         <Typography color="text.secondary">
                           ₱{item.price.toLocaleString("en-PH")}
