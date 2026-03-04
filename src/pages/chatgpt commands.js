@@ -1,1 +1,0 @@
-chatgpt commands.js
