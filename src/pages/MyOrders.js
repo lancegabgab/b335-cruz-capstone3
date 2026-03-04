@@ -1,85 +1,106 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Container, Table } from 'react-bootstrap';
+import {
+  Container,
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  Divider,
+  Box,
+} from '@mui/material';
 import UserContext from '../UserContext';
+import NoImage from '../images/NoImage.jpg';
 
 const MyOrders = () => {
   const { user } = useContext(UserContext);
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const userId = user ? user.id : null;
-    if (userId) {
-      fetchOrders(userId);
-    }
+    if (user?.id) fetchOrders();
   }, [user]);
 
-  const fetchOrders = (userId) => {
-    fetch(`${process.env.REACT_APP_API_URL}/order/my-orders`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('access')}`,
-      },
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch orders');
-        }
-        return response.json();
-      })
-      .then(data => setOrders(data.orders))
-      .catch(error => console.error('Error fetching orders:', error.message));
+  const fetchOrders = async () => {
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/order/my-orders`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access')}`,
+        },
+      });
+      const data = await res.json();
+      setOrders(data.orders || []);
+    } catch (err) {
+      console.error('Error fetching orders:', err);
+    }
   };
 
   return (
-    <Container className="mt-4 d-flex flex-column align-items-center">
-      <h2 className="mb-4">Your Order History</h2>
-      <Table striped bordered hover className="w-75">
-        <thead>
-          <tr>
-            <th className="text-center">Order Date</th>
-            <th className="text-center">Total Price</th>
-            <th className="text-center">Product</th>
-            <th className="text-center">Quantity</th>
-            <th className="text-center">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders && orders.length > 0 ? (
-            orders.map((order) => (
-              <tr key={order._id}>
-                <td className="text-center">{new Date(order.orderDate).toLocaleString()}</td>
-                <td className="text-center">{order.totalPrice.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                <td className="text-center">
+    <Container sx={{ mt: 4 }}>
+      <Typography variant="h4" gutterBottom textAlign="center">
+        Your Order History
+      </Typography>
+
+      {orders.length === 0 && (
+        <Typography textAlign="center" mt={4}>No orders available</Typography>
+      )}
+
+      <Grid container spacing={3}>
+        {orders.map((order) => (
+          <Grid item xs={12} key={order._id}>
+            <Card sx={{ p: 2 }}>
+              <CardContent>
+                <Box display="flex" justifyContent="space-between" mb={2}>
+                  <Typography variant="subtitle1" fontWeight="bold">
+                    Order Date: {new Date(order.orderDate).toLocaleString()}
+                  </Typography>
+                  <Typography variant="subtitle1" fontWeight="bold">
+                    Total: ₱{order.totalPrice.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </Typography>
+                </Box>
+
+                <Divider sx={{ mb: 2 }} />
+
+                <Grid container spacing={2}>
                   {order.productsOrdered.map((product) => (
-                    <div key={product.productId}>
-                      {product.name} 
-                    </div>
+                    <Grid item xs={12} sm={6} md={4} key={product.productId}>
+                      <Box
+                        sx={{
+                          p: 1,
+                          border: '1px solid #eee',
+                          borderRadius: 2,
+                          textAlign: 'center'
+                        }}
+                      >
+
+                        <Box
+                          component="img"
+                          src={product.image ? `${process.env.REACT_APP_API_URL}/${product.image}` : NoImage}
+                          alt={product.name}
+                          onError={(e) => (e.target.src = NoImage)}
+                          sx={{
+                            width: '100%',
+                            maxHeight: 100,
+                            objectFit: 'cover',
+                            borderRadius: 2,
+                            mb: 1
+                          }}
+                        />
+
+                        <Typography fontWeight="bold" noWrap>
+                          {product.name}
+                        </Typography>
+                        <Typography>Quantity: {product.quantity}</Typography>
+                        <Typography>
+                          Subtotal: ₱{(product.price * product.quantity).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </Typography>
+                      </Box>
+                    </Grid>
                   ))}
-                </td>
-                <td className="text-center">
-                  {order.productsOrdered.map((product) => (
-                    <div key={product.productId}>
-                      {product.quantity}
-                    </div>
-                  ))}
-                </td>
-                <td className="text-center">
-                  {order.productsOrdered.map((product) => (
-                    <div key={product.productId}>
-                      {product.price.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                    </div>
-                  ))}
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5">No orders available</td>
-            </tr>
-          )}
-        </tbody>
-      </Table>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
     </Container>
   );
 };
