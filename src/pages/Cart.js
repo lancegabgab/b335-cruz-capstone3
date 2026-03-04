@@ -156,9 +156,28 @@ const Cart = () => {
                   <CardContent>
                     <Grid container alignItems="center" spacing={2}>
                       <Grid item xs={12} md={4}>
+                        <Box
+                          component="img"
+                          src={
+                            item.productId?.image
+                              ? `${process.env.REACT_APP_API_URL}/${item.productId.image}`
+                              : NoImage
+                          }
+                          alt={item.productId?.name}
+                          onError={(e) => (e.target.src = NoImage)}
+                          sx={{
+                            width: "100%",
+                            maxHeight: 120,
+                            objectFit: "cover",
+                            borderRadius: 2,
+                            mb: 1,
+                          }}
+                        />
+                      
                         <Typography fontWeight="bold">
-                          {item.productId.name}
+                          {item.productId?.name}
                         </Typography>
+                      
                         <Typography color="text.secondary">
                           ₱{item.price.toLocaleString("en-PH")}
                         </Typography>
