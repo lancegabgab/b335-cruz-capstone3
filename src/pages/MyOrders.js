@@ -59,43 +59,50 @@ const MyOrders = () => {
 
                 <Divider sx={{ mb: 2 }} />
 
-                <Grid container spacing={2}>
-                  {order.productsOrdered.map((product) => (
-                    <Grid item xs={12} sm={6} md={4} key={product.productId}>
-                      <Box
-                        sx={{
-                          p: 1,
-                          border: '1px solid #eee',
-                          borderRadius: 2,
-                          textAlign: 'center'
-                        }}
-                      >
+                {order.productsOrdered.map((product) => (
+                  <Box
+                    key={product.productId}
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    mb={1}
+                    p={1}
+                    border="1px solid #eee"
+                    borderRadius={2}
+                  >
+                    <Box
+                      component="img"
+                      src={product.image ? `${process.env.REACT_APP_API_URL}/${product.image}` : NoImage}
+                      alt={product.name}
+                      onError={(e) => (e.target.src = NoImage)}
+                      sx={{
+                        width: 60,
+                        height: 60,
+                        objectFit: 'cover',
+                        borderRadius: 2,
+                        mr: 2,
+                      }}
+                    />
 
-                        <Box
-                          component="img"
-                          src={product.image ? `${process.env.REACT_APP_API_URL}/${product.image}` : NoImage}
-                          alt={product.name}
-                          onError={(e) => (e.target.src = NoImage)}
-                          sx={{
-                            width: '100%',
-                            maxHeight: 100,
-                            objectFit: 'cover',
-                            borderRadius: 2,
-                            mb: 1
-                          }}
-                        />
+                    <Box flex={1}>
+                      <Typography fontWeight="bold" noWrap>
+                        {product.name}
+                      </Typography>
+                    </Box>
 
-                        <Typography fontWeight="bold" noWrap>
-                          {product.name}
-                        </Typography>
-                        <Typography>Quantity: {product.quantity}</Typography>
-                        <Typography>
-                          Subtotal: ₱{(product.price * product.quantity).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                        </Typography>
-                      </Box>
-                    </Grid>
-                  ))}
-                </Grid>
+                    {/* Quantity */}
+                    <Box mx={2}>
+                      <Typography>Qty: {product.quantity}</Typography>
+                    </Box>
+
+                    {/* Subtotal */}
+                    <Box>
+                      <Typography fontWeight="bold">
+                        ₱{(product.price * product.quantity).toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                      </Typography>
+                    </Box>
+                  </Box>
+                ))}
               </CardContent>
             </Card>
           </Grid>
