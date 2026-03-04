@@ -155,79 +155,60 @@ const Cart = () => {
                 <Card key={item.productId} sx={{ mb: 3 }}>
                   <CardContent>
                     <Grid container alignItems="center" spacing={2}>
-                      <Grid item xs={12} md={4}>
+                      <Grid item xs={3} sm={2}>
                         <Box
                           component="img"
-                          src={
-                            item.productId?.image
-                              ? `${process.env.REACT_APP_API_URL}/${item.productId.image}`
-                              : NoImage
-                          }
-                          alt={item.productId?.name}
-                          onError={(e) => (e.target.src = NoImage)}
+                          src={NoImage}
+                          alt={item.productId.name}
                           sx={{
                             width: "100%",
-                            maxHeight: 120,
+                            height: 70,
                             objectFit: "cover",
                             borderRadius: 2,
-                            mb: 1,
                           }}
                         />
-                      
-                        <Typography fontWeight="bold">
-                          {item.productId?.name}
+                      </Grid>
+            
+                      <Grid item xs={5} sm={6}>
+                        <Typography fontWeight="bold" noWrap>
+                          {item.productId.name}
                         </Typography>
-                      
                         <Typography color="text.secondary">
                           ₱{item.price.toLocaleString("en-PH")}
                         </Typography>
                       </Grid>
-
-                      <Grid item xs={12} md={4}>
-                        <Box display="flex" alignItems="center">
+                  
+                      <Grid item xs={4} sm={3}>
+                        <Box display="flex" alignItems="center" justifyContent="flex-end">
                           <IconButton
+                            size="small"
                             onClick={() =>
-                              handleEditQuantity(
-                                item.productId,
-                                item.quantity - 1
-                              )
+                              handleEditQuantity(item.productId, item.quantity - 1)
                             }
                           >
-                            <RemoveIcon />
+                            <RemoveIcon fontSize="small" />
                           </IconButton>
-
-                          <Typography>{item.quantity}</Typography>
-
+                  
+                          <Typography mx={1}>{item.quantity}</Typography>
+                  
                           <IconButton
+                            size="small"
                             onClick={() =>
-                              handleEditQuantity(
-                                item.productId,
-                                item.quantity + 1
-                              )
+                              handleEditQuantity(item.productId, item.quantity + 1)
                             }
                           >
-                            <AddIcon />
+                            <AddIcon fontSize="small" />
                           </IconButton>
                         </Box>
                       </Grid>
-
-                      <Grid item xs={12} md={3}>
-                        <Typography>
-                          ₱
-                          {(item.price * item.quantity).toLocaleString(
-                            "en-PH"
-                          )}
-                        </Typography>
-                      </Grid>
-
-                      <Grid item xs={12} md={1}>
+                  
+                      <Grid item xs={12} sm={1} textAlign="right">
                         <IconButton
                           color="error"
-                          onClick={() =>
-                            handleRemoveProduct(item.productId)
-                          }
+                          size="small"
+                          onClick={() => handleRemoveProduct(item.productId)}
                         >
-                          <DeleteIcon />
+                          <DeleteIcon fontSize="small" />
                         </IconButton>
                       </Grid>
                     </Grid>
