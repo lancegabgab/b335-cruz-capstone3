@@ -81,7 +81,6 @@ const Users = () => {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>User ID</th>
                 <th>Name</th>
                 <th>Admin?</th>
                 <th>Actions</th>
@@ -90,7 +89,6 @@ const Users = () => {
             <tbody>
               {users.map((singleUser) => (
                 <tr key={singleUser._id}>
-                  <td>{singleUser._id}</td>
                   <td>{`${singleUser.firstName} ${singleUser.lastName}`}</td>
                   <td>{singleUser.isAdmin ? 'Yes' : 'No'}</td>
                   <td>
