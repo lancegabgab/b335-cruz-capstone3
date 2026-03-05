@@ -27,7 +27,7 @@ const MyOrders = () => {
         },
       });
       const data = await res.json();
-      setOrders(data.orders || []);
+      setOrders(data || []);
     } catch (err) {
       console.error('Error fetching orders:', err);
     }
