@@ -26,7 +26,7 @@ const AllOrders = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setOrders(data.orders);
+        setOrders(data);
         setLoading(false);
       })
       .catch((error) => {
