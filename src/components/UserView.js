@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
-import SearchByName from './SearchByName';
-import SearchByPrice from './SearchByPrice';
 import NoImage from '../images/NoImage.jpg';
 
 import {
