@@ -23,8 +23,8 @@ export default function AdminView() {
       });
       const data = await response.json();
 
-      if (data && data.result) {
-        setProducts(data.result);
+      if (data) {
+        setProducts(data);
       } else {
         console.error('Invalid response structure:', data);
       }
