@@ -1,24 +1,10 @@
 import { useState, useEffect } from 'react';
-import Swal from 'sweetalert2';
-import NoImage from '../images/NoImage.jpg';
-
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  CardActions,
-  Typography,
-  Button,
-  Grid,
-  CircularProgress,
-  Alert,
-  Container
-} from '@mui/material';
+import { Grid, CircularProgress, Alert, Container, Typography } from '@mui/material';
+import ProductCard from './ProductCard';
 
 export default function UserView() {
   const [activeProducts, setActiveProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
-  const [addingToCart, setAddingToCart] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchActiveProducts = async () => {
@@ -46,41 +32,22 @@ export default function UserView() {
   };
 
   const addToCart = async (productId, quantity = 1) => {
-    setAddingToCart(true);
-
-    try {
-      const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/cart/add-to-cart`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('access')}`
-          },
-          body: JSON.stringify({ productId, quantity })
-        }
-      );
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || 'Failed to add to cart');
+    const res = await fetch(
+      `${process.env.REACT_APP_API_URL}/cart/add-to-cart`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('access')}`
+        },
+        body: JSON.stringify({ productId, quantity })
       }
+    );
 
-      Swal.fire({
-        icon: 'success',
-        title: 'Added to Cart!',
-        timer: 1200,
-        showConfirmButton: false
-      });
-    } catch (err) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: err.message
-      });
-    } finally {
-      setAddingToCart(false);
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || 'Failed to add to cart');
     }
   };
 
@@ -106,48 +73,7 @@ export default function UserView() {
         <Grid container spacing={3}>
           {activeProducts.map(product => (
             <Grid item xs={12} sm={6} md={4} key={product._id}>
-              <Card
-                sx={{
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  transition: '0.3s',
-                  '&:hover': { boxShadow: 6 }
-                }}
-              >
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    {product.name}
-                  </Typography>
-                  <CardMedia
-                    component="img"
-                    height="180"
-                    image={product.image ? product.image : NoImage}
-                  />
-                  {/* <Typography variant="body2" color="text.secondary">
-                    {product.description}
-                  </Typography> */}
-
-                  <Typography
-                    variant="h6"
-                    color="primary"
-                    sx={{ mt: 2 }}
-                  >
-                    ₱{product.price}
-                  </Typography>
-                </CardContent>
-
-                <CardActions>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    disabled={addingToCart}
-                    onClick={() => addToCart(product._id)}
-                  >
-                    {addingToCart ? 'Adding...' : 'Add to Cart'}
-                  </Button>
-                </CardActions>
-              </Card>
+              <ProductCard product={product} addToCart={addToCart} />
             </Grid>
           ))}
         </Grid>
