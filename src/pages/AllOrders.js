@@ -59,7 +59,7 @@ const AllOrders = () => {
               <tbody>
                 {orders.map((order, index) => (
                   <tr key={order._id}>
-                    <td className="text-center">{order.user}</td>
+                    <td className="text-center">{`${order.user.firstName} ${order.user.lastName}`}</td>
                     <td className="text-center">₱{order.totalPrice.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                     <td className="text-center">{new Date(order.orderDate).toLocaleString()}</td>
                     <td className="text-center">
