@@ -70,7 +70,7 @@ const AllOrders = () => {
                         <ul>
                           {order.productsOrdered.map((product) => (
                             <li key={product.productId}>
-                              <p>Product ID: {product.productId}</p>
+                              <p>Product: {product.name}</p>
                               <p>Quantity: {product.quantity}</p>
                               <p>Price: ₱{product.price.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
                             </li>
