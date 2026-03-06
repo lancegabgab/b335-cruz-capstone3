@@ -266,11 +266,11 @@ export default function AdminView() {
               <td>
                 {product.isActive ? (
                   <Button variant="outline-danger" onClick={() => handleArchive(product._id)}>
-                    Archive Product
+                    Archive
                   </Button>
                 ) : (
                   <Button variant="outline-success" onClick={() => handleActivate(product._id)}>
-                    Activate Product
+                    Activate
                   </Button>
                 )}
               </td>
