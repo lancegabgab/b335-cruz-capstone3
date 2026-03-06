@@ -12,12 +12,10 @@ import AllOrders from './pages/AllOrders';
 import Cart from './pages/Cart';
 import UserView from './components/UserView';
 import MyOrders from './pages/MyOrders'
-//import GetSpecificProduct from './pages/GetSpecificProduct';
 import { UserProvider } from './UserContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AddProduct from './pages/AddProduct';
 import { useState, useEffect } from 'react';
-// import UserContext from './UserContext';
 
 function App() {
   const [user, setUser] = useState({ id: null, isAdmin: null });
@@ -27,10 +25,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log('State: ');
-    console.log(user); // checks the state
-    console.log('Local storage');
-    console.log(localStorage); // checks the localStorage
   }, [user]);
 
   useEffect(() => {
