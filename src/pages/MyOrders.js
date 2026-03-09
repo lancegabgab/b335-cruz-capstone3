@@ -46,7 +46,7 @@ export default function MyOrders() {
         </Typography>
       )}
 
-      <Grid container spacing={3}>
+      <Grid container spacing={3} justifyContent="center">
         {orders.map((order) => (
           <Grid item xs={12} sm={12} md={12} lg={12} key={order._id}>
             <OrderCard order={order} />
