@@ -48,7 +48,7 @@ export default function MyOrders() {
 
       <Grid container spacing={3}>
         {orders.map((order) => (
-          <Grid item xs={12} key={order._id}>
+          <Grid item xs={12} sm={12} md={12} lg={12} key={order._id}>
             <OrderCard order={order} />
           </Grid>
         ))}
