@@ -74,9 +74,9 @@ https://pet-paradise-lancegabgabs-projects.vercel.app/
 
 ## Demo Accounts
 User Account:
-Email: lancegab@mail.com 
+Email: lancegab@gmail.com 
 Password: qwertyuiop  
 
 Admin Account:
-Email: adminako@mail.com 
+Email: adminako@gmail.com 
 Password: password  
