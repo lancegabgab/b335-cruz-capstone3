@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Container, Typography } from "@mui/material";
+import { Container, Typography, Stack } from "@mui/material";
 import UserContext from "../UserContext";
 import OrderCard from "../components/Orders/OrderCard";
 
@@ -9,28 +9,25 @@ export default function AllOrders() {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    if (user.isAdmin) {
-      fetchOrders();
-    }
+    if (user.isAdmin) fetchOrders();
   }, [user.isAdmin]);
 
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
+      const res = await fetch(
         `${process.env.REACT_APP_API_URL}/order/all-orders`,
         {
-          method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access")}`,
           },
         }
       );
-      const data = await response.json();
-      setOrders(data);
+      const data = await res.json();
+      setOrders(data || []);
       setLoading(false);
-    } catch (error) {
-      console.error("Error fetching orders:", error);
+    } catch (err) {
+      console.error("Error fetching orders:", err);
       setLoading(false);
     }
   };
@@ -42,12 +39,17 @@ export default function AllOrders() {
           <Typography variant="h4" align="center" gutterBottom>
             All Users' Orders
           </Typography>
+
           {loading ? (
             <Typography align="center">Loading orders...</Typography>
           ) : orders.length === 0 ? (
             <Typography align="center">No orders found.</Typography>
           ) : (
-            orders.map((order) => <OrderCard key={order._id} order={order} />)
+            <Stack spacing={3}>
+              {orders.map((order) => (
+                <OrderCard key={order._id} order={order} />
+              ))}
+            </Stack>
           )}
         </>
       ) : (
