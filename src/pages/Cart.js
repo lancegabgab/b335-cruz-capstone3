@@ -104,7 +104,7 @@ const Cart = () => {
         </Typography>
       )}
 
-      <Grid container spacing={4} mt={2}>
+      <Grid container spacing={4} mt={2} justifyContent="center">
         <Grid item xs={12} md={8}>
           <Card>
             <CardContent>
