@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Table, Container, Button } from 'react-bootstrap';
-import UserContext from '../UserContext';
+import React, { useState, useEffect, useContext } from "react";
+import { Container, Typography } from "@mui/material";
+import UserContext from "../UserContext";
+import OrderCard from "../components/Orders/OrderCard";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-const AllOrders = () => {
+export default function AllOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isProductListVisible, setProductListVisible] = useState(false);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
@@ -16,79 +14,47 @@ const AllOrders = () => {
     }
   }, [user.isAdmin]);
 
-  const fetchOrders = () => {
-    setLoading(true);
-    fetch(`${process.env.REACT_APP_API_URL}/order/all-orders`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('access')}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setOrders(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching admin orders:', error);
-        setLoading(false);
-      });
-  };
-
-  const toggleProductListVisibility = () => {
-    setProductListVisible(!isProductListVisible);
+  const fetchOrders = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/order/all-orders`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access")}`,
+          },
+        }
+      );
+      const data = await response.json();
+      setOrders(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+      setLoading(false);
+    }
   };
 
   return (
-    <Container>
+    <Container sx={{ mt: 4, mb: 4 }}>
       {user.isAdmin ? (
-        <div>
-          <h1 className="text-center">All user's orders:</h1>
+        <>
+          <Typography variant="h4" align="center" gutterBottom>
+            All Users' Orders
+          </Typography>
           {loading ? (
-            <p>Loading orders...</p>
+            <Typography align="center">Loading orders...</Typography>
+          ) : orders.length === 0 ? (
+            <Typography align="center">No orders found.</Typography>
           ) : (
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th className="text-center">User</th>
-                  <th className="text-center">Total Price</th>
-                  <th className="text-center">Order Date</th>
-                  <th className="text-center">Products</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map((order, index) => (
-                  <tr key={order._id}>
-                    <td className="text-center">{`${order.user.firstName} ${order.user.lastName}`}</td>
-                    <td className="text-center">₱{order.totalPrice.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                    <td className="text-center">{new Date(order.orderDate).toLocaleString()}</td>
-                    <td className="text-center">
-                      <Button onClick={toggleProductListVisibility}>
-                        {isProductListVisible ? 'Hide' : 'View'} Product List
-                      </Button>
-                      {isProductListVisible && (
-                        <ul>
-                          {order.productsOrdered.map((product) => (
-                            <li key={product.productId}>
-                              <p>Product: {product.name}</p>
-                              <p>Quantity: {product.quantity}</p>
-                              <p>Price: ₱{product.price.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+            orders.map((order) => <OrderCard key={order._id} order={order} />)
           )}
-        </div>
+        </>
       ) : (
-        <p>You do not have permission to view admin orders.</p>
+        <Typography align="center">
+          You do not have permission to view admin orders.
+        </Typography>
       )}
     </Container>
   );
-};
-
-export default AllOrders;
+}
