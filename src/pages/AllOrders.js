@@ -47,7 +47,7 @@ export default function AllOrders() {
           ) : (
             <Stack spacing={3}>
               {orders.map((order) => (
-                <OrderCard key={order._id} order={order} />
+                <OrderCard key={order._id} order={order} showUser={true} />
               ))}
             </Stack>
           )}
