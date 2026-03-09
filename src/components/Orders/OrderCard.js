@@ -1,11 +1,16 @@
 import { Card, CardContent, Typography, Divider, Box } from "@mui/material";
 import NoImage from "../../images/NoImage.jpg";
 
-export default function OrderCard({ order }) {
+export default function OrderCard({ order, showUser = false  }) {
   return (
     <Card sx={{ p: 2 }}>
       <CardContent>
 
+        {showUser && order.user && (
+          <Typography fontWeight="bold" mb={1}>
+            User: {order.user.firstName} {order.user.lastName}
+          </Typography>
+        )}
         <Typography fontWeight="bold" mb={2}>
           Order Date: {new Date(order.orderDate).toLocaleString()}
         </Typography>
