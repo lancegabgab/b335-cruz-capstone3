@@ -1,10 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import {
-  Container,
-  Typography,
-  Grid
-} from '@mui/material';
-
+import { Container, Typography, Stack } from '@mui/material';
 import UserContext from '../UserContext';
 import OrderCard from '../components/Orders/OrderCard';
 
@@ -46,13 +41,11 @@ export default function MyOrders() {
         </Typography>
       )}
 
-      <Grid container spacing={3} justifyContent="center">
+      <Stack spacing={3}>
         {orders.map((order) => (
-          <Grid item xs={12} sm={12} md={12} lg={12} key={order._id}>
-            <OrderCard order={order} />
-          </Grid>
+          <OrderCard key={order._id} order={order} /> 
         ))}
-      </Grid>
+      </Stack>
 
     </Container>
   );
