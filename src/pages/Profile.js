@@ -1,9 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
 import Swal from 'sweetalert2';
 import ResetPassword from '../components/ResetPassword';
 import UserContext from '../UserContext';
+
+import {
+  Container,
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Box,
+  Divider,
+} from '@mui/material';
 
 export default function Profile() {
   const { user } = useContext(UserContext);
@@ -21,18 +30,13 @@ export default function Profile() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (typeof data._id !== 'undefined') {
+        if (data._id) {
           setDetails(data);
-        } else if (data.error === 'User not found') {
-          showError('User not found');
         } else {
-          showError('Something went wrong');
+          showError(data.error || 'Something went wrong');
         }
       })
-      .catch((error) => {
-        console.error('Error fetching user details:', error);
-        showError('Failed to fetch user details');
-      });
+      .catch(() => showError('Failed to fetch user details'));
   };
 
   const showError = (message) => {
@@ -44,28 +48,48 @@ export default function Profile() {
   };
 
   return (
-    <Container>
-      {user.id === null && localStorage.getItem('access') === null ? (
-        <Navigate to="/courses" />
-      ) : (
-        <Row className="mt-5">
-          <Col md={6} className="bg-primary text-white p-4 rounded">
-            <h1 className="mb-4">Profile</h1>
-            <h2>{`${details.firstName} ${details.lastName}`}</h2>
-            <hr className="bg-light" />
-            <h4 className="mt-3">Contacts</h4>
-            <ul>
-              <li>Email: {details.email}</li>
-              <li>Mobile No: {details.mobileNo}</li>
-            </ul>
-          </Col>
-          <Col md={6}>
-            <div className="bg-black text-white p-4 rounded">
+    <Container maxWidth="md" sx={{ mt: 5 }}>
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={6}>
+          <Card elevation={3}>
+            <CardContent>
+              <Typography variant="h5" gutterBottom>
+                Profile
+              </Typography>
+              <Typography variant="h6" sx={{ mb: 2 }}>
+                {details.firstName} {details.lastName}
+              </Typography>
+              <Divider sx={{ mb: 2 }} />
+              <Typography variant="subtitle1" gutterBottom>
+                Contact Information
+              </Typography>
+              <Typography>
+                <strong>Email:</strong> {details.email}
+              </Typography>
+              <Typography>
+                <strong>Mobile:</strong> {details.mobileNo}
+              </Typography>
+              <Box sx={{ mt: 3 }}>
+                <Button variant="contained" color="primary">
+                  Edit Profile
+                </Button>
+              </Box>
+            </CardContent>
+          </Card>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Card elevation={3}>
+            <CardContent>
+              <Typography variant="h5" gutterBottom>
+                Security
+              </Typography>
+              <Divider sx={{ mb: 2 }} />
               <ResetPassword />
-            </div>
-          </Col>
-        </Row>
-      )}
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
     </Container>
   );
 }
