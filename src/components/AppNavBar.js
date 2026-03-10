@@ -5,6 +5,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import UserContext from '../UserContext';
 import '../style.css';
 import logo from '../images/componentPhotos/petParadiseTextNoBg.png';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const AppNavBar = () => {
   const { user } = useContext(UserContext);
@@ -51,7 +52,7 @@ const AppNavBar = () => {
                     Shop
                   </Nav.Link>
                   <Nav.Link as={NavLink} to="/cart" id="fontColor1">
-                    Cart
+                    <ShoppingCartIcon />
                   </Nav.Link>
                   <Nav.Link as={NavLink} to="/myorders" id="fontColor1">
                     Orders
