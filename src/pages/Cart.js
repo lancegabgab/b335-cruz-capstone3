@@ -109,13 +109,17 @@ const Cart = () => {
           <Card>
             <CardContent>
               {cart.length === 0 ? (
-                <Typography align="center">Your cart is empty.</Typography>
-                <Typography color="textSecondary" gutterBottom>
-                  Looks like you haven't added anything yet.
-                </Typography>
-                <Button variant="contained" color="primary">
-                  Browse Products
-                </Button>
+                <Box textAlign="center" py={5}>
+                  <Typography variant="h6" gutterBottom>
+                    Your Cart is Empty
+                  </Typography>
+                  <Typography color="textSecondary" gutterBottom>
+                    Looks like you haven't added anything yet.
+                  </Typography>
+                  <Button variant="contained" color="primary">
+                    Browse Products
+                  </Button>
+                </Box>
               ) : (
                 <>
                   <Box display="flex" alignItems="center" px={1} mb={1}>
