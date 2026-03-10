@@ -1,22 +1,31 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Alert,
+  Card,
+  CardContent,
+} from '@mui/material';
 
 const ResetPassword = () => {
-  // export default function ResetPassword(){
-
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [severity, setSeverity] = useState('error');
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
       setMessage('Passwords do not match');
+      setSeverity('error');
       return;
     }
 
     try {
-      const token = localStorage.getItem('access'); // Replace with your actual JWT token
+      const token = localStorage.getItem('access');
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/users/update-password`,
         {
@@ -31,63 +40,59 @@ const ResetPassword = () => {
 
       if (response.ok) {
         setMessage('Password reset successfully');
+        setSeverity('success');
         setPassword('');
         setConfirmPassword('');
       } else {
         const errorData = await response.json();
-        setMessage(errorData.message);
+        setMessage(errorData.message || 'Failed to reset password');
+        setSeverity('error');
       }
     } catch (error) {
-      setMessage('An error occurred. Please try again.');
       console.error(error);
+      setMessage('An error occurred. Please try again.');
+      setSeverity('error');
     }
   };
 
   return (
-    <div className="container">
-      <h2>Reset Password</h2>
-      <form onSubmit={handleResetPassword}>
-        <div className="mb-3">
-          <label
-            htmlFor="password"
-            className="form-label"
-          >
-            New Password
-          </label>
-          <input
+    <Card elevation={3}>
+      <CardContent>
+        <Typography variant="h5" gutterBottom>
+          Reset Password
+        </Typography>
+
+        <Box
+          component="form"
+          onSubmit={handleResetPassword}
+          sx={{ mt: 2, display: 'flex', flexDirection: 'column', gap: 2 }}
+        >
+          <TextField
+            label="New Password"
             type="password"
-            className="form-control"
-            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            fullWidth
           />
-        </div>
-        <div className="mb-3">
-          <label
-            htmlFor="confirmPassword"
-            className="form-label"
-          >
-            Confirm Password
-          </label>
-          <input
+
+          <TextField
+            label="Confirm Password"
             type="password"
-            className="form-control"
-            id="confirmPassword"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
+            fullWidth
           />
-        </div>
-        {message && <div className="alert alert-danger">{message}</div>}
-        <button
-          type="submit"
-          className="btn btn-primary"
-        >
-          Reset Password
-        </button>
-      </form>
-    </div>
+
+          {message && <Alert severity={severity}>{message}</Alert>}
+
+          <Button type="submit" variant="contained" color="primary">
+            Reset Password
+          </Button>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
 
