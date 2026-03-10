@@ -14,7 +14,6 @@ import UserView from './components/UserView';
 import MyOrders from './pages/MyOrders'
 import { UserProvider } from './UserContext';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AddProduct from './pages/AddProduct';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -56,13 +55,8 @@ function App() {
           <Router>
             <>
               <AppNavBar />
-
               <div>
                 <Routes>
-                  <Route
-                    path="/products/"
-                    element={<AddProduct />}
-                  />
                   <Route
                     path="allorders"
                     element={<AllOrders />}
