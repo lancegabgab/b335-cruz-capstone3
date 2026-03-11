@@ -27,7 +27,7 @@ const AppNavBar = () => {
   const handleCloseUserMenu = () => setAnchorElUser(null);
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#4caf50' }}>
+    <AppBar position="static" sx={{ backgroundColor: '#2E7D32' }}>
       <Toolbar>
         <NavLink to="/">
           <img src={logo} alt="Pet Paradise" style={{ height: 50 }} />
