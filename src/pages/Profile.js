@@ -14,7 +14,7 @@ import {
   Divider,
 } from '@mui/material';
 
-export default function Profile() {
+const Profile = () => {
   const { user } = useContext(UserContext);
   const [details, setDetails] = useState({});
 
@@ -93,3 +93,5 @@ export default function Profile() {
     </Container>
   );
 }
+
+export default Profile;
