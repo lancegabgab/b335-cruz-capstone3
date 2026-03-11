@@ -7,7 +7,7 @@ import FetchToy from '../images/dogs/FetchToy.png';
 import BoneChewToy from '../images/dogs/BoneChewToy.png';
 import FlirtPole from '../images/dogs/FlirtPole.png';
 
-export default function Home() {
+const Home = () => {
   const catsSectionStyle = {
     backgroundColor: '#f7f7f7',
     padding: '20px',
@@ -118,3 +118,5 @@ export default function Home() {
     </Container>
   );
 }
+
+export default Home;
