@@ -67,12 +67,6 @@ const AppNavBar = () => {
                   <NavLink to="/allorders">
                     <MenuItem onClick={handleCloseNavMenu}>Orders</MenuItem>
                   </NavLink>
-                  <NavLink to="/profile">
-                    <MenuItem onClick={handleCloseNavMenu}>Profile</MenuItem>
-                  </NavLink>
-                  <NavLink to="/logout">
-                    <MenuItem onClick={handleCloseNavMenu}>Logout</MenuItem>
-                  </NavLink>
                 </>
               ) : (
                 <>
@@ -86,12 +80,6 @@ const AppNavBar = () => {
                   </NavLink>
                   <NavLink to="/myorders">
                     <MenuItem onClick={handleCloseNavMenu}>Orders</MenuItem>
-                  </NavLink>
-                  <NavLink to="/profile">
-                    <MenuItem onClick={handleCloseNavMenu}>Profile</MenuItem>
-                  </NavLink>
-                  <NavLink to="/logout">
-                    <MenuItem onClick={handleCloseNavMenu}>Logout</MenuItem>
                   </NavLink>
                 </>
               )
@@ -129,12 +117,6 @@ const AppNavBar = () => {
                 <NavLink to="/allorders">
                   <Button sx={{ color: 'white' }}>Orders</Button>
                 </NavLink>
-                <NavLink to="/profile">
-                  <Button sx={{ color: 'white' }}>Profile</Button>
-                </NavLink>
-                <NavLink to="/logout">
-                  <Button sx={{ color: 'white' }}>Logout</Button>
-                </NavLink>
               </>
             ) : (
               <>
@@ -148,12 +130,6 @@ const AppNavBar = () => {
                 </NavLink>
                 <NavLink to="/myorders">
                   <Button sx={{ color: 'white' }}>Orders</Button>
-                </NavLink>
-                <NavLink to="/profile">
-                  <Button sx={{ color: 'white' }}>Profile</Button>
-                </NavLink>
-                <NavLink to="/logout">
-                  <Button sx={{ color: 'white' }}>Logout</Button>
                 </NavLink>
               </>
             )
