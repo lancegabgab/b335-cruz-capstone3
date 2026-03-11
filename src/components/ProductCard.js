@@ -10,7 +10,7 @@ import {
 import Swal from 'sweetalert2';
 import NoImage from '../images/NoImage.jpg';
 
-export default function ProductCard({ product, addToCart }) {
+const ProductCard = ({ product, addToCart }) => {
   const [adding, setAdding] = useState(false);
 
   const handleAddToCart = async () => {
@@ -65,3 +65,5 @@ export default function ProductCard({ product, addToCart }) {
     </Card>
   );
 }
+
+export default ProductCard;
