@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 import Banner1 from '../images/banner/Banner1.png';
 
-export default function About() {
+const About = () => {
  
   const petParadiseHistory = `
     Pet Paradise Toy Shop has a rich history that began in the quaint town of Meadowville in 1985. Founded by the visionary entrepreneur, Emily Harper, the shop initially started as a small, family-owned business dedicated to providing unique and high-quality toys for pets. Emily's passion for animals and her desire to enhance the bond between pets and their owners fueled the growth of Pet Paradise Toy Shop over the years.
@@ -26,3 +26,5 @@ export default function About() {
     </Container>
   );
 }
+
+export default About;
