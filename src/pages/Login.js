@@ -1,131 +1,140 @@
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { useState, useEffect, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import Swal from 'sweetalert2'; 
 import UserContext from '../UserContext';
+import {
+  Container,
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Stack,
+} from '@mui/material';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(false);
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (email !== '' && password !== '') {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
+    setIsActive(email !== '' && password !== '');
   }, [email, password]);
 
-  function authenticate(e) {
+  const authenticate = async (e) => {
     e.preventDefault();
 
-    fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      }),
-    }).then((response) => response.json())
-      .then((data) => {
-        if (data.access) {
-          localStorage.setItem('access', data.access);
-          retrieveUserDetails(data.access);
-          Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: 'You are now logged in',
-            timer: 1500,
-            showConfirmButton: false,
-          }).then(() => {
-          navigate('/products/all');
-        });;
-        } else if (data.error === 'No Email Found') {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'Email not found',
-          });
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: `${email} does not exist`,
-          });
-        }
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
       });
+
+      const data = await response.json();
+
+      if (data.access) {
+        localStorage.setItem('access', data.access);
+        retrieveUserDetails(data.access);
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'You are now logged in',
+          timer: 1500,
+          showConfirmButton: false,
+        }).then(() => navigate('/products/all'));
+      } else if (data.error === 'No Email Found') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Email not found',
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: `${email} does not exist`,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Server error. Please try again later.',
+      });
+    }
 
     setEmail('');
     setPassword('');
-  }
+  };
 
-  const retrieveUserDetails = (token) => {
-    fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setUser({
-          id: data._id,
-          isAdmin: data.isAdmin,
-        });
+  const retrieveUserDetails = async (token) => {
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
+      const data = await res.json();
+      setUser({ id: data._id, isAdmin: data.isAdmin });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
-    <Container>
-      <Row className="justify-content-center">
-        <Col xs={12} md={4}>
-          <Form onSubmit={(e) => isActive && authenticate(e)}>
-            <h1 className="my-5 text-center">Sign in</h1>
-            <Form.Group controlId="userEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </Form.Group>
+    <Container maxWidth="sm">
+      <Box
+        sx={{
+          mt: 8,
+          p: 4,
+          boxShadow: 3,
+          borderRadius: 2,
+          backgroundColor: 'white',
+        }}
+      >
+        <Typography variant="h4" align="center" gutterBottom>
+          Sign in
+        </Typography>
 
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </Form.Group>
+        <form onSubmit={(e) => isActive && authenticate(e)}>
+          <Stack spacing={3}>
+            <TextField
+              label="Email address"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              fullWidth
+              required
+            />
+            <TextField
+              label="Password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              fullWidth
+              required
+            />
 
-            {isActive ? (
-              <Button variant="primary" type="submit" id="submitBtn">
-                Sign in
-              </Button>
-            ) : (
-              <Button variant="danger" type="submit" id="submitBtn" disabled>
-                Sign in
-              </Button>
-            )}
-            <div className="text-center mt-3">
-              <small>
-                No account yet? <Link to="/register">Sign up</Link>
-              </small>
-            </div>
-          </Form>
-        </Col>
-      </Row>
+            <Button
+              type="submit"
+              variant="contained"
+              color={isActive ? 'primary' : 'inherit'}
+              disabled={!isActive}
+              fullWidth
+            >
+              Sign in
+            </Button>
+
+            <Typography variant="body2" align="center">
+              No account yet? <Link to="/register">Sign up</Link>
+            </Typography>
+          </Stack>
+        </form>
+      </Box>
     </Container>
   );
-}
+};
+
 export default Login;
