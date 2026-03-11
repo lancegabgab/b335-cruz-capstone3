@@ -4,7 +4,7 @@ import { useContext, useEffect } from 'react';
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-export default function Logout() {
+const Logout = () => {
   const { unsetUser, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -35,6 +35,7 @@ export default function Logout() {
       }
     });
   }, [navigate, setUser, unsetUser]);
-
   return null; 
 }
+
+export default Logout;
