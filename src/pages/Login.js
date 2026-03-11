@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import UserContext from '../UserContext';
 
-export default function Login() {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isActive, setIsActive] = useState(true);
@@ -37,8 +37,6 @@ export default function Login() {
         if (data.access) {
           localStorage.setItem('access', data.access);
           retrieveUserDetails(data.access);
-
-          // SweetAlert2 notification on successful login
           Swal.fire({
             icon: 'success',
             title: 'Success',
@@ -49,14 +47,12 @@ export default function Login() {
           navigate('/products/all');
         });;
         } else if (data.error === 'No Email Found') {
-          // SweetAlert2 notification for email not found
           Swal.fire({
             icon: 'error',
             title: 'Error',
             text: 'Email not found',
           });
         } else {
-          // SweetAlert2 notification for other errors
           Swal.fire({
             icon: 'error',
             title: 'Error',
@@ -132,3 +128,4 @@ export default function Login() {
     </Container>
   );
 }
+export default Login;
