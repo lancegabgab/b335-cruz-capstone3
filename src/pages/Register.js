@@ -2,12 +2,9 @@ import { Form, Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import '../style.css';
 
-export default function Register() {
-
+const Register = () => {
   const navigate = useNavigate();
-
   const [formFields, setFormFields] = useState({
     firstName: '',
     lastName: '',
@@ -209,3 +206,5 @@ export default function Register() {
     </div>
   );
 }
+
+export default Register;
