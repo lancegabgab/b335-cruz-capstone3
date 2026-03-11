@@ -1,5 +1,18 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Container, Row, Col, Table, Button } from 'react-bootstrap';
+import {
+  Container,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  CircularProgress,
+  Box,
+} from '@mui/material';
 import Swal from 'sweetalert2';
 import UserContext from '../UserContext';
 
@@ -26,10 +39,10 @@ const Users = () => {
 
       const data = await response.json();
       setUsers(data);
-      setLoading(false);
     } catch (error) {
       console.error('Error fetching all users:', error);
       setError('Failed to fetch user data');
+    } finally {
       setLoading(false);
     }
   };
@@ -53,19 +66,20 @@ const Users = () => {
         throw new Error(`Error setting as admin: ${response.statusText}`);
       }
 
-      // Fetch updated user data after setting as admin
       await fetchUsers();
 
-      // Show sweet alert on success
       Swal.fire({
         icon: 'success',
         title: 'Success!',
         text: 'User has been set as admin successfully.',
       });
-
     } catch (error) {
       console.error('Error setting as admin:', error);
-      // Handle error
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Failed to set user as admin.',
+      });
     }
   };
 
@@ -73,44 +87,69 @@ const Users = () => {
     fetchUsers();
   }, []);
 
+  if (loading)
+    return (
+      <Box display="flex" justifyContent="center" mt={5}>
+        <CircularProgress />
+      </Box>
+    );
+
+  if (error)
+    return (
+      <Typography color="error" align="center" mt={5}>
+        {error}
+      </Typography>
+    );
+
   return (
-    <Container className="text-center">
-      <h1>All Users</h1>
-      <Row>
-        <Col>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Admin?</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((singleUser) => (
-                <tr key={singleUser._id}>
-                  <td>{`${singleUser.firstName} ${singleUser.lastName}`}</td>
-                  <td>{singleUser.isAdmin ? 'Yes' : 'No'}</td>
-                  <td>
+    <Container maxWidth="md" sx={{ mt: 5 }}>
+      <Typography variant="h4" align="center" gutterBottom>
+        All Users
+      </Typography>
+
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell><strong>Name</strong></TableCell>
+              <TableCell><strong>Admin?</strong></TableCell>
+              <TableCell align="center"><strong>Actions</strong></TableCell>
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {users.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={3} align="center">
+                  No users found
+                </TableCell>
+              </TableRow>
+            ) : (
+              users.map((singleUser) => (
+                <TableRow key={singleUser._id}>
+                  <TableCell>{`${singleUser.firstName} ${singleUser.lastName}`}</TableCell>
+                  <TableCell>{singleUser.isAdmin ? 'Yes' : 'No'}</TableCell>
+                  <TableCell align="center">
                     {singleUser.isAdmin ? (
-                      <Button variant="secondary" disabled>
+                      <Button variant="contained" color="secondary" disabled>
                         Admin
                       </Button>
                     ) : (
                       <Button
-                        variant="primary"
+                        variant="contained"
+                        color="primary"
                         onClick={() => handleSetAsAdmin(singleUser._id)}
                       >
                         Set as Admin
                       </Button>
                     )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Col>
-      </Row>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Container>
   );
 };
