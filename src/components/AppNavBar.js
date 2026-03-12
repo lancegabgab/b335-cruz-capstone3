@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Avatar from '@mui/material/Avatar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import logo from '../images/componentPhotos/petParadiseTextNoBg.png';
+import logo from '../images/PetParadiseLogo.png';
 
 const AppNavBar = () => {
   const { user } = useContext(UserContext);
