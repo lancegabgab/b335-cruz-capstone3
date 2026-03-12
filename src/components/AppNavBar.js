@@ -32,7 +32,8 @@ const AppNavBar = () => {
           <img src={logo} alt="Pet Paradise" style={{ height: 50 }} />
         </NavLink>
 
-        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+        {/* Mobile links */}
+        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }} >
           <IconButton
             size="large"
             color="inherit"
@@ -93,7 +94,7 @@ const AppNavBar = () => {
         </Box>
 
         {/* Desktop links */}
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 3 }}>
+        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
           <NavLink to="/home">
             <Button sx={{ color: 'white' }}>Home</Button>
           </NavLink>
