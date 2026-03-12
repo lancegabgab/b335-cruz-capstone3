@@ -124,9 +124,6 @@ const AppNavBar = () => {
                     <ShoppingCartIcon />
                   </Button>
                 </NavLink>
-                <NavLink to="/myorders">
-                  <Button sx={{ color: 'white' }}>Orders</Button>
-                </NavLink>
               </>
             )
           ) : (
