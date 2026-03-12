@@ -163,6 +163,9 @@ const AppNavBar = () => {
               <NavLink to="/profile">
                 <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
               </NavLink>
+              <NavLink to="/myorders">
+                <MenuItem onClick={handleCloseUserMenu}>My Orders</MenuItem>
+              </NavLink>
               <NavLink to="/logout">
                 <MenuItem onClick={handleCloseUserMenu}>Logout</MenuItem>
               </NavLink>
