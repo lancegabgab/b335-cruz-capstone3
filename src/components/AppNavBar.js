@@ -77,9 +77,6 @@ const AppNavBar = () => {
                       <ShoppingCartIcon />
                     </MenuItem>
                   </NavLink>
-                  <NavLink to="/myorders">
-                    <MenuItem onClick={handleCloseNavMenu}>Orders</MenuItem>
-                  </NavLink>
                 </>
               )
             ) : (
