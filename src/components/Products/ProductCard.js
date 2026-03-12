@@ -8,7 +8,7 @@ import {
   Button
 } from '@mui/material';
 import Swal from 'sweetalert2';
-import NoImage from '../images/NoImage.jpg';
+import NoImage from '../../images/NoImage.jpg';
 
 const ProductCard = ({ product, addToCart }) => {
   const [adding, setAdding] = useState(false);
