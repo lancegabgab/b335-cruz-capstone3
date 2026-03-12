@@ -14,7 +14,6 @@ import Avatar from '@mui/material/Avatar';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import logo from '../images/componentPhotos/petParadiseTextNoBg.png';
-import NoImage from '../images/NoImage.jpg';
 
 const AppNavBar = () => {
   const { user } = useContext(UserContext);
@@ -149,7 +148,7 @@ const AppNavBar = () => {
           <Box sx={{ flexGrow: 0, ml: 2 }}>
             <Tooltip title="Profile">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user.name} src="/static/images/NoImage.jpg" />
+                <Avatar />
               </IconButton>
             </Tooltip>
             <Menu
