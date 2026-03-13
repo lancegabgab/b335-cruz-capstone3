@@ -13,8 +13,8 @@ import AllOrders from './pages/AllOrders';
 import Cart from './pages/Cart';
 import MyOrders from './pages/MyOrders'
 import AppNavBar from './components/AppNavBar';
+import Footer from './components/Footer';
 import './style.css';
-
 
 function App() {
   const [user, setUser] = useState({ id: null, isAdmin: null });
@@ -103,6 +103,7 @@ function App() {
                   />
                 </Routes>
               </div>
+              <Footer />
             </>
           </Router>
         </div>
