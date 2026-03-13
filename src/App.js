@@ -1,20 +1,20 @@
-import './style.css';
+import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { UserProvider } from './UserContext';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import About from './pages/About';
-import AppNavBar from './components/AppNavBar';
 import Product from './pages/Product';
 import Profile from './pages/Profile';
 import Users from './pages/Users';
 import AllOrders from './pages/AllOrders';
 import Cart from './pages/Cart';
-import UserView from './components/UserView';
 import MyOrders from './pages/MyOrders'
-import { UserProvider } from './UserContext';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import AppNavBar from './components/AppNavBar';
+import './style.css';
+
 
 function App() {
   const [user, setUser] = useState({ id: null, isAdmin: null });
@@ -70,7 +70,7 @@ function App() {
                     element={<Home />}
                   />
                   <Route
-                    path="/products/all"
+                    path="/products"
                     element={<Product />}
                   />
                   <Route
@@ -80,10 +80,6 @@ function App() {
                   <Route
                     path="/cart"
                     element={<Cart />}
-                  />
-                  <Route
-                    path="/products/users"
-                    element={<UserView />}
                   />
                   <Route
                     path="/myorders"
