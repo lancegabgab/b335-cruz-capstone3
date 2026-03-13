@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import Banner1 from '../images/banner/Banner1.png';
+import Banner from '../images/PetParadiseBanner.png';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -10,11 +10,11 @@ const Home = () => {
     <Box sx={{ position: 'relative', width: '100%', mt: 3 }}>
       <Box
         component="img"
-        src={Banner1}
+        src={Banner}
         alt="Pet Paradise Banner"
         sx={{
           width: '100%',
-          maxHeight: 500,
+          maxHeight: 700,
           objectFit: 'cover',
         }}
       />

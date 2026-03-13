@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import Banner1 from '../images/banner/Banner1.png';
-
+import PetParadiseBanner from '../images/PetParadiseBanner.png';
 const About = () => {
  
   const petParadiseHistory = `
@@ -21,7 +21,7 @@ const About = () => {
       <h1 className="text-center" style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#333' }}>
         About Pet Paradise
       </h1>
-      <img src={Banner1} alt="Pet Paradise Banner" style={bannerStyle} />
+      <img src={PetParadiseBanner} alt="Pet Paradise Banner" style={bannerStyle}/>
       <p className="text-center bg-dark text-white mt-3 p-3" style={{ fontSize: '1.2rem', lineHeight: '1.6', color: '#555' }}>{petParadiseHistory}</p>
     </Container>
   );
