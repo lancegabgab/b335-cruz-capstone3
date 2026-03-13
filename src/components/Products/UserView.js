@@ -2,58 +2,38 @@ import { useState, useEffect } from 'react';
 import { Grid, CircularProgress, Alert, Container, Typography } from '@mui/material';
 import ProductCard from './ProductCard';
 
-export default function UserView() {
+const UserView = ({ productsData }) => {
   const [activeProducts, setActiveProducts] = useState([]);
   const [loadingProducts, setLoadingProducts] = useState(true);
-  const [error, setError] = useState(null);
 
   const fetchActiveProducts = async () => {
     setLoadingProducts(true);
-    setError(null);
-
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/products/`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('access')}`
-        }
-      });
-
-      const data = await res.json();
-      if (Array.isArray(data)) {
-        setActiveProducts(data);
-      } else {
-        setError('Invalid response structure');
-      }
+      setActiveProducts(productsData.filter(p => p.isActive));
     } catch (err) {
-      setError('Error fetching products');
+      console.error(err);
     } finally {
       setLoadingProducts(false);
     }
   };
 
   const addToCart = async (productId, quantity = 1) => {
-    const res = await fetch(
-      `${process.env.REACT_APP_API_URL}/cart/add-to-cart`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('access')}`
-        },
-        body: JSON.stringify({ productId, quantity })
-      }
-    );
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/cart/add-to-cart`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('access')}`
+      },
+      body: JSON.stringify({ productId, quantity })
+    });
 
     const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.message || 'Failed to add to cart');
-    }
+    if (!res.ok) throw new Error(data.message || 'Failed to add to cart');
   };
 
   useEffect(() => {
     fetchActiveProducts();
-  }, []);
+  }, [productsData]);
 
   return (
     <Container sx={{ mt: 4 }}>
@@ -61,15 +41,13 @@ export default function UserView() {
         Products
       </Typography>
 
-      {loadingProducts && (
-        <Grid container justifyContent="center" sx={{ mt: 4 }}>
-          <CircularProgress />
-        </Grid>
+      {loadingProducts && <CircularProgress sx={{ display: 'block', mx: 'auto', mt: 4 }} />}
+
+      {!loadingProducts && activeProducts.length === 0 && (
+        <Alert severity="info">No products found</Alert>
       )}
 
-      {error && <Alert severity="error">{error}</Alert>}
-
-      {!loadingProducts && !error && (
+      {!loadingProducts && activeProducts.length > 0 && (
         <Grid container spacing={3}>
           {activeProducts.map(product => (
             <Grid item xs={12} sm={6} md={4} key={product._id}>
@@ -78,10 +56,8 @@ export default function UserView() {
           ))}
         </Grid>
       )}
-
-      {!loadingProducts && !error && activeProducts.length === 0 && (
-        <Alert severity="info">No products found</Alert>
-      )}
     </Container>
   );
 }
+
+export default UserView;
