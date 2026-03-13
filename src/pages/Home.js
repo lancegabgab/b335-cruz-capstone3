@@ -28,10 +28,10 @@ const Home = () => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'center',
-          textAlign: 'center',
+          alignItems: 'flex-start',
+          textAlign: 'left',
           color: 'white',
-          px: 2,
+          px: 4,
         }}
       >
         <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 2 }}>
