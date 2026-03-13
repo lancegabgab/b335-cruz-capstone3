@@ -42,7 +42,12 @@ const Home = () => {
         </Typography>
         <Button
           variant="contained"
-          sx={{ backgroundColor: '#FFD700', color: '#000', fontWeight: 'bold' }}
+          sx={{ 
+            backgroundColor: '#2E7D32', 
+            color: '#fff', 
+            borderRadius: '50px',
+            fontWeight: 'bold' 
+          }}
           onClick={() => navigate('/products')}
         >
           Shop Now
