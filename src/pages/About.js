@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import Banner1 from '../images/banner/Banner1.png';
 import PetParadiseBanner from '../images/PetParadiseBanner.png';
 const About = () => {
  
