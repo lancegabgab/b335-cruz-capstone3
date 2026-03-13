@@ -1,24 +1,53 @@
 import React from 'react';
-import { Box } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import Banner1 from '../images/banner/Banner1.png';
 
 const Home = () => {
+  const navigate = useNavigate();
+
   return (
-    <Box 
-      display="flex" 
-      justifyContent="center" 
-      mt={3}
-    >
+    <Box sx={{ position: 'relative', width: '100%', mt: 3 }}>
       <Box
         component="img"
         src={Banner1}
         alt="Pet Paradise Banner"
         sx={{
-          maxHeight: 500,
           width: '100%',
+          maxHeight: 500,
           objectFit: 'cover',
         }}
       />
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          textAlign: 'center',
+          color: 'white',
+          px: 2,
+        }}
+      >
+        <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 2 }}>
+          Fun Toys for Happy Pets
+        </Typography>
+        <Typography variant="h6" sx={{ mb: 3 }}>
+          Discover safe and exciting toys your pets will love
+        </Typography>
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: '#FFD700', color: '#000', fontWeight: 'bold' }}
+          onClick={() => navigate('/products')}
+        >
+          Shop Now
+        </Button>
+      </Box>
     </Box>
   );
 }
