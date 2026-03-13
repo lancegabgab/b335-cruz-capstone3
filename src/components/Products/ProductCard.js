@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -12,11 +13,24 @@ import NoImage from '../../images/NoImage.jpg';
 
 const ProductCard = ({ product, addToCart }) => {
   const [adding, setAdding] = useState(false);
+  const navigate = useNavigate();
 
   const handleAddToCart = async () => {
     setAdding(true);
     try {
       await addToCart(product._id); 
+      Swal.fire({
+        icon: 'success',
+        title: 'Added to Cart!',
+        text: 'The item has been added to your cart.',
+        showCancelButton: true,
+        confirmButtonText: 'Go to Cart',
+        cancelButtonText: 'Continue Shopping'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/cart');
+        }
+      });
     } catch (err) {
       Swal.fire({
         icon: 'error',
