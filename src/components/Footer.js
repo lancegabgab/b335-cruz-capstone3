@@ -1,0 +1,67 @@
+import React from "react";
+import { Box, Typography, Link, Stack } from "@mui/material";
+import logo from '../images/PetParadiseLogo.png';
+
+const Footer = () => {
+  return (
+    <Box
+      component="footer"
+      sx={{
+        bgcolor: "#2E7D32",
+        py: 4,
+        px: { xs: 2, md: 8 },
+        mt: 8,
+        borderTop: "1px solid #e0e0e0",
+      }}
+    >
+      <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+        <Box
+          component="img"
+          src={logo}
+          alt="Pet Paradise Logo"
+          sx={{ height: 40, mr: 1 }}
+        />
+        <Typography variant="h6" fontWeight="bold">
+          Pet Paradise
+        </Typography>
+      </Box>
+
+      <Typography variant="body1">
+        Fun toys for happy pets!<br />
+        Discover safe and exciting toys your pets will love.
+      </Typography>
+
+      <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+        <Link href="https://www.facebook.com/lancegabriel.cruz.90" target="_blank" underline="hover">
+          Facebook
+        </Link>
+        <Link href="https://www.instagram.com/lanceeegab/?hl=en" target="_blank" underline="hover">
+          Instagram
+        </Link>
+      </Stack>
+
+      <Typography variant="body2" sx={{ mt: 3 }}>
+        Quick Links:{" "}
+        <Link href="/" underline="hover">Home</Link> |{" "}
+        <Link href="/shop" underline="hover">Shop</Link> |{" "}
+        <Link href="/about" underline="hover">About Us</Link> |{" "}
+        <Link href="/contact" underline="hover">Contact</Link> |{" "}
+        <Link href="/faq" underline="hover">FAQ</Link>
+      </Typography>
+
+      <Typography variant="body2" sx={{ mt: 1 }}>
+        Contact Us:{" "}
+        <Link href="mailto:lancegabcruz@gmail.com" underline="hover">
+          lancegabcruz@gmail.com
+        </Link>{" "}
+        | +63 905 665 9968
+      </Typography>
+
+      <Typography variant="caption" display="block" sx={{ mt: 3 }}>
+        © 2023 Pet Paradise. All rights reserved.{" "}
+      </Typography>
+    </Box>
+  );
+};
+
+export default Footer;
