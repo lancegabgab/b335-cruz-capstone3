@@ -20,9 +20,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import NoImage from "../images/NoImage.jpg";
+import NoImage from "../../images/NoImage.jpg";
 
-export default function AdminView({ productsData, fetchData }) {
+const AdminView = ({ productsData, fetchData }) => {
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
   const [product, setProduct] = useState({ name: "", description: "", price: 0, image: "" });
@@ -195,3 +195,4 @@ export default function AdminView({ productsData, fetchData }) {
     </Container>
   );
 }
+export default AdminView;
