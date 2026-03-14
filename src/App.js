@@ -14,7 +14,6 @@ import Cart from './pages/Cart';
 import MyOrders from './pages/MyOrders'
 import AppNavBar from './components/AppNavBar';
 import Footer from './components/Footer';
-import './style.css';
 
 function App() {
   const [user, setUser] = useState({ id: null, isAdmin: null });
@@ -51,62 +50,25 @@ function App() {
   return (
     <>
       <UserProvider value={{ user, setUser, unsetUser }}>
-        <div className="rubikFont">
-          <Router>
-            <>
-              <AppNavBar />
-              <div>
-                <Routes>
-                  <Route
-                    path="allorders"
-                    element={<AllOrders />}
-                  />
-                  <Route
-                    path="/users"
-                    element={<Users />}
-                  />
-                  <Route
-                    path="/home"
-                    element={<Home />}
-                  />
-                  <Route
-                    path="/products"
-                    element={<Product />}
-                  />
-                  <Route
-                    path="/profile"
-                    element={<Profile />}
-                  />
-                  <Route
-                    path="/cart"
-                    element={<Cart />}
-                  />
-                  <Route
-                    path="/myorders"
-                    element={<MyOrders />}
-                  />
-                  <Route
-                    path="/about"
-                    element={<About />}
-                  />
-                  <Route
-                    path="/register"
-                    element={<Register />}
-                  />
-                  <Route
-                    path="/"
-                    element={<Login />}
-                  />
-                  <Route
-                    path="/logout"
-                    element={<Logout />}
-                  />
-                </Routes>
-              </div>
-              <Footer />
-            </>
-          </Router>
-        </div>
+        <Router>
+          <>
+            <AppNavBar />
+              <Routes>
+                <Route path="allorders" element={<AllOrders />} />
+                <Route path="/users" element={<Users />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/products" element={<Product />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/myorders" element={<MyOrders />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/" element={<Login />} />
+                <Route path="/logout" element={<Logout />} />
+              </Routes>
+            <Footer />
+          </>
+        </Router>
       </UserProvider>
     </>
   );
