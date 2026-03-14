@@ -1,5 +1,7 @@
 import React from "react";
 import { Box, Typography, Link, Stack } from "@mui/material";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import logo from '../images/PetParadiseLogo.png';
 
 const Footer = () => {
@@ -30,12 +32,12 @@ const Footer = () => {
 
       <Typography variant="body2" sx={{ mt: 3 }}>
         Follow Us:{" "}
-        <Stack direction="row" spacing={2} >
+        <Stack direction="row">
           <Link href="https://www.facebook.com/lancegabriel.cruz.90" target="_blank" underline="hover" sx={{ color: "white" }}>
-            Facebook
+            <FontAwesomeIcon icon={faFacebook} size="2xl" />
           </Link>
           <Link href="https://www.instagram.com/lanceeegab/?hl=en" target="_blank" underline="hover" sx={{ color: "white" }}>
-            Instagram
+            <FontAwesomeIcon icon={faInstagram} size="2xl" />
           </Link>
         </Stack>
       </Typography>
