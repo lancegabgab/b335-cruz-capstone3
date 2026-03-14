@@ -7,7 +7,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ position: 'relative', width: '100%', mt: 3 }}>
+    <Box sx={{ position: 'relative', width: '100%' }}>
       <Box
         component="img"
         src={Banner}
