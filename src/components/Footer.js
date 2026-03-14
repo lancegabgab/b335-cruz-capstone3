@@ -21,9 +21,6 @@ const Footer = () => {
           alt="Pet Paradise Logo"
           sx={{ height: 40, mr: 1 }}
         />
-        <Typography variant="h6" fontWeight="bold">
-          Pet Paradise
-        </Typography>
       </Box>
 
       <Typography variant="body1">
@@ -31,27 +28,31 @@ const Footer = () => {
         Discover safe and exciting toys your pets will love.
       </Typography>
 
-      <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-        <Link href="https://www.facebook.com/lancegabriel.cruz.90" target="_blank" underline="hover">
-          Facebook
-        </Link>
-        <Link href="https://www.instagram.com/lanceeegab/?hl=en" target="_blank" underline="hover">
-          Instagram
-        </Link>
-      </Stack>
+      <Typography variant="body2" sx={{ mt: 3 }}>
+        Follow Us:{" "}
+        <Stack direction="row" spacing={2} >
+          <Link href="https://www.facebook.com/lancegabriel.cruz.90" target="_blank" underline="hover" sx={{ color: "white" }}>
+            Facebook
+          </Link>
+          <Link href="https://www.instagram.com/lanceeegab/?hl=en" target="_blank" underline="hover" sx={{ color: "white" }}>
+            Instagram
+          </Link>
+        </Stack>
+      </Typography>
+      
 
       <Typography variant="body2" sx={{ mt: 3 }}>
         Quick Links:{" "}
-        <Link href="/" underline="hover">Home</Link> |{" "}
-        <Link href="/shop" underline="hover">Shop</Link> |{" "}
-        <Link href="/about" underline="hover">About Us</Link> |{" "}
-        <Link href="/contact" underline="hover">Contact</Link> |{" "}
-        <Link href="/faq" underline="hover">FAQ</Link>
+        <Link href="/" underline="hover" sx={{ color: "white" }}>Home</Link> |{" "}
+        <Link href="/shop" underline="hover" sx={{ color: "white" }}>Shop</Link> |{" "}
+        <Link href="/about" underline="hover" sx={{ color: "white" }}>About Us</Link> |{" "}
+        <Link href="/contact" underline="hover" sx={{ color: "white" }}>Contact</Link> |{" "}
+        <Link href="/faq" underline="hover" sx={{ color: "white" }}>FAQ</Link>
       </Typography>
 
       <Typography variant="body2" sx={{ mt: 1 }}>
         Contact Us:{" "}
-        <Link href="mailto:lancegabcruz@gmail.com" underline="hover">
+        <Link href="mailto:lancegabcruz@gmail.com" underline="hover" sx={{ color: "white" }}>
           lancegabcruz@gmail.com
         </Link>{" "}
         | +63 905 665 9968
