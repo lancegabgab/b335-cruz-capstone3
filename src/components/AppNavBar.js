@@ -48,7 +48,7 @@ const AppNavBar = () => {
             anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
             transformOrigin={{ vertical: 'top', horizontal: 'left' }}
           >
-            <NavLink to="/home">
+            <NavLink to="/">
               <MenuItem onClick={handleCloseNavMenu}>Home</MenuItem>
             </NavLink>
             <NavLink to="/about">
@@ -82,7 +82,7 @@ const AppNavBar = () => {
               )
             ) : (
               <>
-                <NavLink to="/">
+                <NavLink to="/login">
                   <MenuItem onClick={handleCloseNavMenu}>Login</MenuItem>
                 </NavLink>
                 <NavLink to="/register">
@@ -105,7 +105,7 @@ const AppNavBar = () => {
           {user.id !== null ? (
             user.isAdmin ? (
               <>
-                <NavLink to="/products/">
+                <NavLink to="/products">
                   <Button sx={{ color: 'white' }}>Products</Button>
                 </NavLink>
                 <NavLink to="/users">
@@ -129,7 +129,7 @@ const AppNavBar = () => {
             )
           ) : (
             <>
-              <NavLink to="/">
+              <NavLink to="/login">
                 <Button sx={{ color: 'white' }}>Login</Button>
               </NavLink>
               <NavLink to="/register">
