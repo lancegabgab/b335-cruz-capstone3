@@ -1,4 +1,3 @@
-import React from "react";
 import { Box, Typography, Link, Stack } from "@mui/material";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
@@ -46,7 +45,7 @@ const Footer = () => {
       <Typography variant="body2" sx={{ mt: 3 }}>
         Quick Links:{" "}
         <Link href="/" underline="hover" sx={{ color: "white" }}>Home</Link> |{" "}
-        <Link href="/shop" underline="hover" sx={{ color: "white" }}>Shop</Link> |{" "}
+        <Link href="/products" underline="hover" sx={{ color: "white" }}>Shop</Link> |{" "}
         <Link href="/about" underline="hover" sx={{ color: "white" }}>About Us</Link> |{" "}
         <Link href="/contact" underline="hover" sx={{ color: "white" }}>Contact</Link> |{" "}
         <Link href="/faq" underline="hover" sx={{ color: "white" }}>FAQ</Link>
