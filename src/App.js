@@ -54,14 +54,14 @@ function App() {
             <AppNavBar />
               <Routes>
                 <Route path="/users" element={<Users />} />
-                <Route path="/home" element={<Home />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/products" element={<Product />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/orders" element={<Order />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/" element={<Login />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/logout" element={<Logout />} />
               </Routes>
             <Footer />
