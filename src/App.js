@@ -9,9 +9,8 @@ import About from './pages/About';
 import Product from './pages/Product';
 import Profile from './pages/Profile';
 import Users from './pages/Users';
-import AllOrders from './pages/AllOrders';
 import Cart from './pages/Cart';
-import MyOrders from './pages/MyOrders'
+import Order from './pages/Order';
 import AppNavBar from './components/AppNavBar';
 import Footer from './components/Footer';
 
@@ -54,13 +53,12 @@ function App() {
           <>
             <AppNavBar />
               <Routes>
-                <Route path="allorders" element={<AllOrders />} />
                 <Route path="/users" element={<Users />} />
                 <Route path="/home" element={<Home />} />
                 <Route path="/products" element={<Product />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/cart" element={<Cart />} />
-                <Route path="/myorders" element={<MyOrders />} />
+                <Route path="/orders" element={<Order />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/" element={<Login />} />
