@@ -95,7 +95,7 @@ const AppNavBar = () => {
 
         {/* Desktop links */}
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
-          <NavLink to="/home">
+          <NavLink to="/">
             <Button sx={{ color: 'white' }}>Home</Button>
           </NavLink>
           <NavLink to="/about">
