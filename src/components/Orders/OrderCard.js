@@ -1,8 +1,8 @@
 import { Card, CardContent, Typography, Divider, Box } from "@mui/material";
 import NoImage from "../../images/NoImage.jpg";
 
-export default function OrderCard({ order, showUser = false  }) {
-  return (
+const OrderCard = ({ order, showUser = false  }) => {
+  return ( 
     <Card sx={{ p: 2 }}>
       <CardContent>
 
@@ -108,3 +108,5 @@ export default function OrderCard({ order, showUser = false  }) {
     </Card>
   );
 }
+
+export default OrderCard;
