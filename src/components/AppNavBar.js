@@ -64,7 +64,7 @@ const AppNavBar = () => {
                   <NavLink to="/users">
                     <MenuItem onClick={handleCloseNavMenu}>Users</MenuItem>
                   </NavLink>
-                  <NavLink to="/allorders">
+                  <NavLink to="/orders">
                     <MenuItem onClick={handleCloseNavMenu}>Orders</MenuItem>
                   </NavLink>
                 </>
@@ -111,7 +111,7 @@ const AppNavBar = () => {
                 <NavLink to="/users">
                   <Button sx={{ color: 'white' }}>Users</Button>
                 </NavLink>
-                <NavLink to="/allorders">
+                <NavLink to="/orders">
                   <Button sx={{ color: 'white' }}>Orders</Button>
                 </NavLink>
               </>
@@ -157,7 +157,7 @@ const AppNavBar = () => {
               <NavLink to="/profile">
                 <MenuItem onClick={handleCloseUserMenu}>Profile</MenuItem>
               </NavLink>
-              <NavLink to="/myorders">
+              <NavLink to="/orders">
                 <MenuItem onClick={handleCloseUserMenu}>My Orders</MenuItem>
               </NavLink>
               <NavLink to="/logout">
