@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from 'react';
 import Swal from 'sweetalert2';
 import ResetPassword from '../components/ResetPassword';
 import UserContext from '../UserContext';
-
 import {
   Container,
   Grid,
@@ -13,6 +12,7 @@ import {
   Box,
   Divider,
 } from '@mui/material';
+import { toTitleCase } from '../utils/stringUtils';
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -57,7 +57,7 @@ const Profile = () => {
                 Profile
               </Typography>
               <Typography variant="h6" sx={{ mb: 2 }}>
-                {details.firstName} {details.lastName}
+                {toTitleCase(details.firstName)} {toTitleCase(details.lastName)}
               </Typography>
               <Divider sx={{ mb: 2 }} />
               <Typography variant="subtitle1" gutterBottom>
