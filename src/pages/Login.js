@@ -44,7 +44,7 @@ const Login = () => {
           text: 'You are now logged in',
           timer: 1500,
           showConfirmButton: false,
-        }).then(() => navigate('/products/all'));
+        }).then(() => navigate('/products'));
       } else if (data.error === 'No Email Found') {
         Swal.fire({
           icon: 'error',
