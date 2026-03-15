@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import Swal from 'sweetalert2';
-import ResetPassword from '../components/ResetPassword';
+import ResetPassword from '../components/Profile/ResetPassword';
 import UserContext from '../UserContext';
 import {
   Container,
