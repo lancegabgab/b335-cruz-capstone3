@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import Swal from 'sweetalert2';
 import NoImage from '../../images/NoImage.jpg';
+import { toTitleCase } from '../utils/stringUtils';
 
 const ProductCard = ({ product, addToCart }) => {
   const [adding, setAdding] = useState(false);
@@ -54,7 +55,7 @@ const ProductCard = ({ product, addToCart }) => {
     >
       <CardContent>
         <Typography variant="h6" gutterBottom>
-          {product.name}
+          {toTitleCase(product.name)}
         </Typography>
         <CardMedia
           component="img"
