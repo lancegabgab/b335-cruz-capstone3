@@ -8,11 +8,11 @@ import {
   Box,
   Divider
 } from "@mui/material";
-
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import NoImage from "../../images/NoImage.jpg";
+import { toTitleCase } from '../../utils/stringUtils';
 
 const ShoppingCart = ({
   cart,
@@ -92,7 +92,7 @@ const ShoppingCart = ({
                       />
 
                       <Typography fontWeight="bold">
-                        {item.productId.name}
+                        {toTitleCase(item.productId.name)}
                       </Typography>
                     </Box>
 
