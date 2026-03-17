@@ -1,5 +1,6 @@
 import { Card, CardContent, Typography, Divider, Box } from "@mui/material";
 import NoImage from "../../images/NoImage.jpg";
+import { toTitleCase } from '../../utils/stringUtils';
 
 const OrderCard = ({ order, showUser = false  }) => {
   return ( 
@@ -66,7 +67,7 @@ const OrderCard = ({ order, showUser = false  }) => {
                 }}
               />
               <Typography fontWeight="bold" noWrap>
-                {product.name}
+                {toTitleCase(product.name)}
               </Typography>
             </Box>
 
