@@ -12,7 +12,7 @@ const OrderStatusTabs = () => {
 
   return (
     <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-      <Tabs value={value} onChange={handleChange}>
+      <Tabs value={value} onChange={handleChange} centered>
         <Tab label="To Ship" />
         <Tab label="Shipped" />
         <Tab label="For Delivery" />
