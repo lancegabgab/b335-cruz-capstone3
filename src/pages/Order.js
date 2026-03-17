@@ -1,4 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
+import { Typography } from '@mui/material';
 import UserContext from '../UserContext';
 import UserView from '../components/Orders/UserView';
 import AdminView from '../components/Orders/AdminView';
@@ -34,6 +35,10 @@ const Order = () => {
 
   return (
     <>
+      <Typography variant="h4" align="center" gutterBottom>
+        {user?.isAdmin ? "Users' Orders" : "My Orders"}
+      </Typography>
+  
       <OrderStatusTabs />
       {user?.isAdmin ? (
         <AdminView ordersData={orders} fetchData={fetchData} />
