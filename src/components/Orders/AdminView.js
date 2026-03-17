@@ -1,17 +1,9 @@
 import { Container, Typography, Stack } from '@mui/material';
 import OrderCard from './OrderCard';
-import OrderStatusTabs from './OrderStatusTabs';
 
 const AdminView = ({ ordersData, fetchData }) => {
   return (
     <Container sx={{ mt: 4, mb: 4 }}>
-  
-      <OrderStatusTabs />
-
-      <Typography variant="h4" align="center" gutterBottom>
-        All Users' Orders
-      </Typography>
-
       {ordersData.length === 0 ? (
         <Typography align="center">No orders found.</Typography>
       ) : (
