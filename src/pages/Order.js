@@ -2,7 +2,8 @@ import { useEffect, useState, useContext } from 'react';
 import UserContext from '../UserContext';
 import UserView from '../components/Orders/UserView';
 import AdminView from '../components/Orders/AdminView';
-
+import OrderStatusTabs from '../components/Orders/OrderStatusTabs';
+  
 const Order = () => {
   const { user } = useContext(UserContext);
   const [orders, setOrders] = useState([]);
@@ -31,10 +32,15 @@ const Order = () => {
     fetchData();
   }, [user]);
 
-  return user.isAdmin ? (
-    <AdminView ordersData={orders} fetchData={fetchData} />
-  ) : (
-    <UserView ordersData={orders} />
+  return (
+    <>
+      <OrderStatusTabs />
+      {user?.isAdmin ? (
+        <AdminView ordersData={orders} fetchData={fetchData} />
+      ) : (
+        <UserView ordersData={orders} />
+      )}
+    </>
   );
 };
 
