@@ -11,6 +11,7 @@ import {
 import Swal from 'sweetalert2';
 import NoImage from '../../images/NoImage.jpg';
 import { toTitleCase } from '../../utils/stringUtils';
+import { formatPrice } from '../../utils/priceUtils';
 
 const ProductCard = ({ product, addToCart }) => {
   const [adding, setAdding] = useState(false);
@@ -63,7 +64,7 @@ const ProductCard = ({ product, addToCart }) => {
           {toTitleCase(product.name)}
         </Typography>
         <Typography variant="h6" color="primary" sx={{ mt: 2 }}>
-          ₱{product.price}
+          ₱{formatPrice(product.price)}
         </Typography>
       </CardContent>
 
