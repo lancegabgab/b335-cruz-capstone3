@@ -50,7 +50,7 @@ const Profile = () => {
   return (
     <Container maxWidth="md" sx={{ mt: 5 }}>
       <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <Card elevation={3}>
             <CardContent>
               <Typography variant="h5" gutterBottom>
@@ -78,7 +78,7 @@ const Profile = () => {
           </Card>
         </Grid>
 
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <Card elevation={3}>
             <CardContent>
               <Typography variant="h5" gutterBottom>
