@@ -1,6 +1,7 @@
 import { Card, CardContent, Typography, Divider, Box } from "@mui/material";
 import NoImage from "../../images/NoImage.jpg";
 import { toTitleCase } from '../../utils/stringUtils';
+import { formatDateTime } from "../../utils/dateTimeUtils";
 
 const OrderCard = ({ order, showUser = false  }) => {
   return ( 
@@ -13,7 +14,7 @@ const OrderCard = ({ order, showUser = false  }) => {
           </Typography>
         )}
         <Typography fontWeight="bold" mb={2}>
-          Order Date: {new Date(order.orderDate).toLocaleString()}
+          Order Date: {formatDateTime(order.orderDate)}
         </Typography>
 
         <Divider sx={{ mb: 2 }} />
