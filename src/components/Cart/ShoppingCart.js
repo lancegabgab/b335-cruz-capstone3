@@ -125,13 +125,13 @@ const ShoppingCart = ({
 
                     <Box width={100} textAlign="right">
                       <Typography>
-                        ₱{formatPrice(item.price)}
+                        {formatPrice(item.price)}
                       </Typography>
                     </Box>
 
                     <Box width={100} textAlign="right">
                       <Typography fontWeight="bold">
-                        ₱{formatPrice(item.price * item.quantity)}
+                        {formatPrice(item.price * item.quantity)}
                       </Typography>
                     </Box>
 
@@ -159,7 +159,7 @@ const ShoppingCart = ({
                   </Button>
 
                   <Typography fontWeight="bold">
-                    Total: ₱{formatPrice(calculateTotal())}
+                    Total: {formatPrice(calculateTotal())}
                   </Typography>
                 </Box>
 
