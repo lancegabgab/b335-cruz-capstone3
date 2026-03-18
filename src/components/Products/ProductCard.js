@@ -64,7 +64,7 @@ const ProductCard = ({ product, addToCart }) => {
           {toTitleCase(product.name)}
         </Typography>
         <Typography variant="h6" color="primary" sx={{ mt: 2 }}>
-          ₱{formatPrice(product.price)}
+          {formatPrice(product.price)}
         </Typography>
       </CardContent>
 
