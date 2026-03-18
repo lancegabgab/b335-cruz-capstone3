@@ -13,6 +13,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import NoImage from "../../images/NoImage.jpg";
 import { toTitleCase } from '../../utils/stringUtils';
+import { formatPrice } from '../../utils/priceUtils';
 
 const ShoppingCart = ({
   cart,
@@ -124,13 +125,13 @@ const ShoppingCart = ({
 
                     <Box width={100} textAlign="right">
                       <Typography>
-                        ₱{item.price.toLocaleString("en-PH", { minimumFractionDigits: 2 })}
+                        ₱{formatPrice(item.price)}
                       </Typography>
                     </Box>
 
                     <Box width={100} textAlign="right">
                       <Typography fontWeight="bold">
-                        ₱{(item.price * item.quantity).toLocaleString("en-PH", { minimumFractionDigits: 2 })}
+                        ₱{formatPrice(item.price * item.quantity))}
                       </Typography>
                     </Box>
 
@@ -158,7 +159,7 @@ const ShoppingCart = ({
                   </Button>
 
                   <Typography fontWeight="bold">
-                    Total: ₱{calculateTotal().toLocaleString("en-PH", { minimumFractionDigits: 2 })}
+                    Total: ₱{formatPrice(calculateTotal())}
                   </Typography>
                 </Box>
 
