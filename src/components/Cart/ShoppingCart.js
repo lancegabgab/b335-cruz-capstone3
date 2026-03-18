@@ -131,7 +131,7 @@ const ShoppingCart = ({
 
                     <Box width={100} textAlign="right">
                       <Typography fontWeight="bold">
-                        ₱{formatPrice(item.price * item.quantity))}
+                        ₱{formatPrice(item.price * item.quantity)}
                       </Typography>
                     </Box>
 
