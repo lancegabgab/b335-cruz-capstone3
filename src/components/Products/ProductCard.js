@@ -53,15 +53,15 @@ const ProductCard = ({ product, addToCart }) => {
         '&:hover': { boxShadow: 6 }
       }}
     >
+      <CardMedia
+        component="img"
+        height="180"
+        image={product.image || NoImage}
+      />
       <CardContent>
         <Typography variant="h6" gutterBottom>
           {toTitleCase(product.name)}
         </Typography>
-        <CardMedia
-          component="img"
-          height="180"
-          image={product.image || NoImage}
-        />
         <Typography variant="h6" color="primary" sx={{ mt: 2 }}>
           ₱{product.price}
         </Typography>
