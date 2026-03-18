@@ -79,13 +79,13 @@ const OrderCard = ({ order, showUser = false  }) => {
 
             <Box width={100} textAlign="right">
               <Typography>
-                ₱{formatPrice(product.price)}
+                {formatPrice(product.price)}
               </Typography>
             </Box>
 
             <Box width={120} textAlign="right">
               <Typography fontWeight="bold">
-                ₱{formatPrice(product.price * product.quantity)}
+                {formatPrice(product.price * product.quantity)}
               </Typography>
             </Box>
           </Box>
@@ -95,7 +95,7 @@ const OrderCard = ({ order, showUser = false  }) => {
 
         <Box display="flex" justifyContent="flex-end">
           <Typography fontWeight="bold" fontSize={18}>
-            Total: ₱{formatPrice(order.totalPrice)}
+            Total: {formatPrice(order.totalPrice)}
           </Typography>
         </Box>
       </CardContent>
