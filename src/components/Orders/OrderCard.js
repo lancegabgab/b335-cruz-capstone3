@@ -10,7 +10,7 @@ const OrderCard = ({ order, showUser = false  }) => {
 
         {showUser && order.user && (
           <Typography fontWeight="bold" mb={1}>
-            User: {order.user.firstName} {order.user.lastName}
+            User: {toTitleCase(order.user.firstName)} {toTitleCase(order.user.lastName)}
           </Typography>
         )}
         <Typography fontWeight="bold" mb={2}>
