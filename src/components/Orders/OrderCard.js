@@ -2,6 +2,7 @@ import { Card, CardContent, Typography, Divider, Box } from "@mui/material";
 import NoImage from "../../images/NoImage.jpg";
 import { toTitleCase } from '../../utils/stringUtils';
 import { formatDateTime } from "../../utils/dateTimeUtils";
+import { formatPrice } from '../../utils/priceUtils';
 
 const OrderCard = ({ order, showUser = false  }) => {
   return ( 
@@ -78,19 +79,13 @@ const OrderCard = ({ order, showUser = false  }) => {
 
             <Box width={100} textAlign="right">
               <Typography>
-                ₱{product.price.toLocaleString("en-PH", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
+                ₱{formatPrice(product.price)}
               </Typography>
             </Box>
 
             <Box width={120} textAlign="right">
               <Typography fontWeight="bold">
-                ₱{(product.price * product.quantity).toLocaleString("en-PH", {
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                })}
+                ₱{formatPrice(product.price * product.quantity)}
               </Typography>
             </Box>
           </Box>
@@ -100,10 +95,7 @@ const OrderCard = ({ order, showUser = false  }) => {
 
         <Box display="flex" justifyContent="flex-end">
           <Typography fontWeight="bold" fontSize={18}>
-            Total: ₱{order.totalPrice.toLocaleString("en-PH", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
+            Total: ₱{formatPrice(order.totalPrice)}
           </Typography>
         </Box>
       </CardContent>
