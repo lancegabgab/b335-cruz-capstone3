@@ -1,14 +1,17 @@
+import { useRef, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserContext from '../UserContext';
-import { useContext, useEffect } from 'react';
 import Swal from 'sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
 
 const Logout = () => {
   const { unsetUser, setUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const hasRun = useRef(false);
 
   useEffect(() => {
+    if (hasRun.current) return;
+    hasRun.current = true;
+
     Swal.fire({
       title: 'Logout',
       text: 'Are you sure you want to logout?',
@@ -35,7 +38,8 @@ const Logout = () => {
       }
     });
   }, [navigate, setUser, unsetUser]);
-  return null; 
-}
+
+  return null;
+};
 
 export default Logout;
