@@ -3,6 +3,7 @@ import { Container, Typography, Box, CircularProgress } from "@mui/material";
 import UserContext from "../UserContext";
 import ShoppingCart from "../components/Cart/ShoppingCart";
 import Swal from "sweetalert2";
+import useApi from "../hooks/useApi";
 
 const Cart = () => {
   const { user } = useContext(UserContext);
@@ -10,24 +11,19 @@ const Cart = () => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { callApi } = useApi("");
 
   const fetchUserCart = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/cart/get-cart`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access")}`,
-          },
-        }
-      );
+      const data = await callApi({
+        method: "GET",
+        url: "/cart/get-cart",
+      });
 
-      const { cart: fetchedCart } = await response.json();
-
-      setCart(Array.isArray(fetchedCart.items) ? fetchedCart.items : []);
+      setCart(Array.isArray(data?.cart?.items) ? data.cart.items : []);
     } catch (err) {
       setError("Failed to fetch cart");
     } finally {
@@ -36,7 +32,7 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    fetchUserCart();
+    if (user.id) fetchUserCart();
   }, [user]);
 
   const handleEditQuantity = (productId, newQuantity) => {
