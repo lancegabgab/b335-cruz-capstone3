@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { UserProvider } from './UserContext';
+import useApi from './hooks/useApi';
 import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Register from './pages/Register';
@@ -14,62 +15,63 @@ import Order from './pages/Order';
 import AppNavBar from './components/AppNavBar';
 import Footer from './components/Footer';
 
-function App() {
+const App = () => {
   const [user, setUser] = useState({ id: null, isAdmin: null });
+  const [loading, setLoading] = useState(true);
+
+  const { callApi } = useApi('/users/details');
 
   const unsetUser = () => {
-    localStorage.clear();
+    localStorage.removeItem('access');
+    setUser({ id: null, isAdmin: null });
   };
 
   useEffect(() => {
-  }, [user]);
+    const getUser = async () => {
+      const data = await callApi();
 
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('access')}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (typeof data._id !== 'undefined') {
-          setUser({
-            id: data._id,
-            isAdmin: data.isAdmin,
-          });
-        } else {
-          setUser({
-            id: null,
-            isAdmin: null,
-          });
-        }
-      });
+      if (data && data._id) {
+        setUser({
+          id: data._id,
+          isAdmin: data.isAdmin,
+        });
+      } else {
+        setUser({
+          id: null,
+          isAdmin: null,
+        });
+      }
+
+      setLoading(false);
+    };
+
+    getUser();
   }, []);
 
+  if (loading) return <div>Loading...</div>;
+
   return (
-    <>
-      <UserProvider value={{ user, setUser, unsetUser }}>
-        <Router>
-          <>
-            <AppNavBar />
-              <Routes>
-                <Route path="/users" element={<Users />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/products" element={<Product />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/orders" element={<Order />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/logout" element={<Logout />} />
-              </Routes>
-            <Footer />
-          </>
-        </Router>
-      </UserProvider>
-    </>
+    <UserProvider value={{ user, setUser, unsetUser }}>
+      <Router>
+        <AppNavBar />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/products" element={<Product />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/orders" element={<Order />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+        </Routes>
+
+        <Footer />
+      </Router>
+    </UserProvider>
   );
-}
+};
 
 export default App;
