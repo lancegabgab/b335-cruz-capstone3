@@ -65,7 +65,7 @@ const Register = () => {
           icon: 'success',
           title: 'Registration successful',
           text: 'You can now sign in.',
-        }).then(() => navigate('/'));
+        }).then(() => navigate('/login'));
       } else {
         Swal.fire({
           icon: 'error',
