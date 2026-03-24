@@ -55,15 +55,14 @@ const AppNavBar = () => {
               <MenuItem onClick={handleCloseNavMenu}>About</MenuItem>
             </NavLink>
             <NavLink to="/products">
-              <MenuItem onClick={handleCloseNavMenu}>Products</MenuItem>
+              <MenuItem onClick={handleCloseNavMenu}>
+                {user.id !== null && user.isAdmin ? 'Products' : 'Shop'}
+              </MenuItem>
             </NavLink>
 
             {user.id !== null ? (
               user.isAdmin ? (
                 <>
-                  <NavLink to="/products">
-                    <MenuItem onClick={handleCloseNavMenu}>Products</MenuItem>
-                  </NavLink>
                   <NavLink to="/users">
                     <MenuItem onClick={handleCloseNavMenu}>Users</MenuItem>
                   </NavLink>
@@ -73,9 +72,6 @@ const AppNavBar = () => {
                 </>
               ) : (
                 <>
-                  <NavLink to="/products">
-                    <MenuItem onClick={handleCloseNavMenu}>Shop</MenuItem>
-                  </NavLink>
                   <NavLink to="/cart">
                     <MenuItem onClick={handleCloseNavMenu}>
                       <ShoppingCartIcon />
@@ -105,7 +101,9 @@ const AppNavBar = () => {
             <Button sx={{ color: 'white' }}>About</Button>
           </NavLink>
           <NavLink to="/products">
-            <Button sx={{ color: 'white' }}>Products</Button>
+            <Button sx={{ color: 'white' }}>
+              {user.id !== null && user.isAdmin ? 'Products' : 'Shop'}
+            </Button>
           </NavLink>
 
           {user.id !== null ? (
