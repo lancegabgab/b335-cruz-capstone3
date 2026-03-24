@@ -1,32 +1,29 @@
-import { useEffect, useState, useContext } from 'react';
-import UserContext from '../UserContext';
-import UserView from '../components/Products/UserView';
-import AdminView from '../components/Products/AdminView';
-import useApi from '../hooks/useApi';
+import { useEffect, useState, useContext } from "react";
+import UserContext from "../UserContext";
+import UserView from "../components/Products/UserView";
+import AdminView from "../components/Products/AdminView";
+import useApi from "../hooks/useApi";
 
 const Products = () => {
   const { user } = useContext(UserContext);
   const [products, setProducts] = useState([]);
-  const { callApi } = useApi(''); 
+
+  const endpoint = user?.isAdmin ? "/products/all" : "/products";
+  const { callApi, loading, error } = useApi(endpoint);
 
   const fetchData = async () => {
-    try {
-      const endpoint =
-        user.isAdmin === true ? '/products/all' : '/products';
-
-      const data = await callApi({ method: 'GET', url: endpoint });
-
-      setProducts(data || []);
-    } catch (err) {
-      console.error(err);
-    }
+    const data = await callApi();
+    setProducts(data || []);
   };
 
   useEffect(() => {
     fetchData();
   }, [user]);
 
-  return user.isAdmin ? (
+  if (loading) return <p>Loading products...</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
+
+  return user?.isAdmin ? (
     <AdminView productsData={products} fetchData={fetchData} />
   ) : (
     <UserView productsData={products} />
