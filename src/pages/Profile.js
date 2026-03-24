@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import Swal from 'sweetalert2';
 import ResetPassword from '../components/Profile/ResetPassword';
 import UserContext from '../UserContext';
+import useApi from "../hooks/useApi";
 import {
   Container,
   Grid,
@@ -17,35 +18,34 @@ import { toTitleCase } from '../utils/stringUtils';
 const Profile = () => {
   const { user } = useContext(UserContext);
   const [details, setDetails] = useState({});
+  const { callApi, loading, error } = useApi("/users/details", "GET");
 
   useEffect(() => {
-    fetchUserDetails();
-  }, []);
-
-  const fetchUserDetails = () => {
-    fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('access')}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data._id) {
-          setDetails(data);
-        } else {
-          showError(data.error || 'Something went wrong');
-        }
-      })
-      .catch(() => showError('Failed to fetch user details'));
-  };
-
-  const showError = (message) => {
-    Swal.fire({
-      title: 'Error',
-      icon: 'error',
-      text: message,
-    });
-  };
+    const fetchDetails = async () => {
+      const data = await callApi();
+      if (data?._id) {
+        setDetails(data);
+      } else if (data === null) {
+        Swal.fire({
+          title: "Error",
+          icon: "error",
+          text: "Failed to fetch user details",
+        });
+      }
+    };
+  
+    fetchDetails();
+  }, [callApi]);
+  
+  useEffect(() => {
+    if (error) {
+      Swal.fire({
+        title: "Error",
+        icon: "error",
+        text: error,
+      });
+    }
+  }, [error]);
 
   return (
     <Container maxWidth="md" sx={{ mt: 5 }}>
