@@ -15,7 +15,7 @@ const OrderCard = ({ order, showUser = false  }) => {
           </Typography>
         )}
         <Typography fontWeight="bold" mb={2}>
-          Order Date: {formatDateTime(order.orderDate)}
+          Order Date: {formatDateTime(order.createdAt)}
         </Typography>
 
         <Divider sx={{ mb: 2 }} />
