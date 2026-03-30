@@ -21,6 +21,7 @@ import {
 import { useState } from "react";
 import Swal from "sweetalert2";
 import NoImage from "../../images/NoImage.jpg";
+import { toTitleCase } from '../../utils/stringUtils';
 
 const AdminView = ({ productsData, fetchData }) => {
   const [showAddDialog, setShowAddDialog] = useState(false);
@@ -141,7 +142,7 @@ const AdminView = ({ productsData, fetchData }) => {
                 <TableCell>
                   <Avatar src={p.image || NoImage} variant="rounded" sx={{ width: 50, height: 50 }} />
                 </TableCell>
-                <TableCell>{p.name}</TableCell>
+                <TableCell>{toTitleCase(p.name)}</TableCell>
                 <TableCell>{p.description}</TableCell>
                 <TableCell>₱{p.price.toLocaleString()}</TableCell>
                 <TableCell>
