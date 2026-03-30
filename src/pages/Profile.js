@@ -57,7 +57,7 @@ const Profile = () => {
                 Profile
               </Typography>
               <Typography variant="h6" sx={{ mb: 2 }}>
-                {toTitleCase(details.firstName)} {toTitleCase(details.lastName)}
+                {toTitleCase(`${details.firstName} ${details.lastName}`)}
               </Typography>
               <Divider sx={{ mb: 2 }} />
               <Typography variant="subtitle1" gutterBottom>
