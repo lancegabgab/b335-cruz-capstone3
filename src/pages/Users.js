@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import Swal from 'sweetalert2';
 import UserContext from '../UserContext';
+import { toTitleCase } from '../utils/stringUtils';
 
 const Users = () => {
   const { user } = useContext(UserContext);
@@ -127,7 +128,7 @@ const Users = () => {
             ) : (
               users.map((singleUser) => (
                 <TableRow key={singleUser._id}>
-                  <TableCell>{`${singleUser.firstName} ${singleUser.lastName}`}</TableCell>
+                  <TableCell>{toTitleCase(`${singleUser.firstName} ${singleUser.lastName}`)}</TableCell>
                   <TableCell>{singleUser.isAdmin ? 'Yes' : 'No'}</TableCell>
                   <TableCell align="center">
                     {singleUser.isAdmin ? (
