@@ -69,7 +69,7 @@ const ShoppingCart = ({
 
                 {cart.map((item) => (
                   <Box
-                    key={item.productId}
+                    key={item.productId._id}
                     display="flex"
                     alignItems="center"
                     mb={2}
@@ -102,7 +102,7 @@ const ShoppingCart = ({
                         <IconButton
                           size="small"
                           onClick={() =>
-                            handleEditQuantity(item.productId, item.quantity - 1)
+                            handleEditQuantity(item.productId._id, item.quantity - 1)
                           }
                         >
                           <RemoveIcon fontSize="small" />
@@ -115,7 +115,7 @@ const ShoppingCart = ({
                         <IconButton
                           size="small"
                           onClick={() =>
-                            handleEditQuantity(item.productId, item.quantity + 1)
+                            handleEditQuantity(item.productId._id, item.quantity + 1)
                           }
                         >
                           <AddIcon fontSize="small" />
@@ -139,7 +139,7 @@ const ShoppingCart = ({
                       <IconButton
                         color="error"
                         size="small"
-                        onClick={() => handleRemoveProduct(item.productId)}
+                        onClick={() => handleRemoveProduct(item.productId._id)}
                       >
                         <DeleteIcon fontSize="small" />
                       </IconButton>
