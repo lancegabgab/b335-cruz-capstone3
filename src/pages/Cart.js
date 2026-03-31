@@ -23,7 +23,7 @@ const Cart = () => {
         url: "/cart/get-cart",
       });
 
-      setCart(Array.isArray(data?.cart?.items) ? data.cart.items : []);
+      setCart(Array.isArray(data?.items) ? data.items : []);
     } catch (err) {
       setError("Failed to fetch cart");
     } finally {
