@@ -22,10 +22,10 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchDetails = async () => {
-      const data = await callApi();
-      if (data?._id) {
-        setDetails(data);
-      } else if (data === null) {
+      const response = await callApi();
+      if (response?.success) {
+        setDetails(response.data);
+      } else {
         Swal.fire({
           title: "Error",
           icon: "error",
