@@ -34,9 +34,10 @@ const Login = () => {
 
       const data = await response.json();
 
-      if (data.access) {
-        localStorage.setItem('access', data.access);
-        retrieveUserDetails(data.access);
+      if (data.success) {
+        const token = data.data.access;
+        localStorage.setItem('access', token);
+        retrieveUserDetails(token);
 
         Swal.fire({
           icon: 'success',
@@ -45,17 +46,11 @@ const Login = () => {
           timer: 1500,
           showConfirmButton: false,
         }).then(() => navigate('/products'));
-      } else if (data.error === 'No Email Found') {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'Email not found',
-        });
       } else {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: `${email} does not exist`,
+          text: data.message,
         });
       }
     } catch (err) {
