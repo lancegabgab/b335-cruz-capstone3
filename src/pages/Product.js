@@ -10,10 +10,9 @@ const Products = () => {
 
   const endpoint = user?.isAdmin ? "/products/all" : "/products";
   const { callApi, loading, error } = useApi(endpoint);
-
   const fetchData = async () => {
-    const data = await callApi();
-    setProducts(data || []);
+    const response = await callApi();
+    setProducts(response.data || []);
   };
 
   useEffect(() => {
