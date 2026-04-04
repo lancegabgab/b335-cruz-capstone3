@@ -114,10 +114,6 @@ const AdminView = ({ productsData, fetchData }) => {
 
   return (
     <Container>
-      <Typography variant="h4" align="center" my={4}>
-        Admin Dashboard
-      </Typography>
-
       <Stack direction="row" spacing={2} justifyContent="space-between" mb={2}>
         <Button variant="contained" onClick={() => setShowAddDialog(true)}>
           + Add Product
