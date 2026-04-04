@@ -36,8 +36,13 @@ const Login = () => {
 
       if (data.success) {
         const token = data.data.access;
+        const user = data.data.user;
         localStorage.setItem('access', token);
-        retrieveUserDetails(token);
+
+        setUser({
+          id: user.id,
+          isAdmin: user.isAdmin,
+        });
 
         Swal.fire({
           icon: 'success',
@@ -64,18 +69,6 @@ const Login = () => {
 
     setEmail('');
     setPassword('');
-  };
-
-  const retrieveUserDetails = async (token) => {
-    try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/users/details`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
-      setUser({ id: data._id, isAdmin: data.isAdmin });
-    } catch (err) {
-      console.error(err);
-    }
   };
 
   return (
