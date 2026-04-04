@@ -37,9 +37,6 @@ const UserView = ({ productsData }) => {
 
   return (
     <Container sx={{ mt: 4 }}>
-      <Typography variant="h4" align="center" gutterBottom>
-        Products
-      </Typography>
 
       {loadingProducts && <CircularProgress sx={{ display: 'block', mx: 'auto', mt: 4 }} />}
 
