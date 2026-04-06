@@ -132,7 +132,7 @@ const AdminView = ({ productsData, fetchData }) => {
               <TableCell>Category</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Status</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
