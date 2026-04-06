@@ -129,6 +129,7 @@ const AdminView = ({ productsData, fetchData }) => {
               <TableCell>Name</TableCell>
               <TableCell>Description</TableCell>
               <TableCell>Pet Type</TableCell>
+              <TableCell>Category</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Actions</TableCell>
@@ -143,6 +144,7 @@ const AdminView = ({ productsData, fetchData }) => {
                 <TableCell>{toTitleCase(p.name)}</TableCell>
                 <TableCell>{p.description}</TableCell>
                 <TableCell>{p.petType[0].split(",").map(t => t.trim()).join(", ")}</TableCell>
+                <TableCell>{p.category}</TableCell>
                 <TableCell>{formatPrice(p.price)}</TableCell>
                 <TableCell>
                   <Chip label={p.isActive ? "Available" : "Unavailable"} color={p.isActive ? "success" : "default"} size="small" />
