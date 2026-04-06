@@ -22,6 +22,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import NoImage from "../../images/NoImage.jpg";
 import { toTitleCase } from '../../utils/stringUtils';
+import { formatPrice } from '../../utils/priceUtils';
 
 const AdminView = ({ productsData, fetchData }) => {
   const [showAddDialog, setShowAddDialog] = useState(false);
@@ -142,7 +143,7 @@ const AdminView = ({ productsData, fetchData }) => {
                 <TableCell>{toTitleCase(p.name)}</TableCell>
                 <TableCell>{p.description}</TableCell>
                 <TableCell>{p.petType[0].split(",").map(t => t.trim()).join(", ")}</TableCell>
-                <TableCell>₱{p.price.toLocaleString()}</TableCell>
+                <TableCell>{formatPrice(p.price)}</TableCell>
                 <TableCell>
                   <Chip label={p.isActive ? "Available" : "Unavailable"} color={p.isActive ? "success" : "default"} size="small" />
                 </TableCell>
