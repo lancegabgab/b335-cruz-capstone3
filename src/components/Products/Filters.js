@@ -45,6 +45,7 @@ const Filters = () => {
           <MenuItem value="">All</MenuItem>
           <MenuItem value="dog">Dog</MenuItem>
           <MenuItem value="cat">Cat</MenuItem>
+          <MenuItem value="hamster">Hamster</MenuItem>
         </Select>
       </FormControl>
 
