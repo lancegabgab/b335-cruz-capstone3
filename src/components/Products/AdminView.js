@@ -143,7 +143,7 @@ const AdminView = ({ productsData, fetchData }) => {
                 </TableCell>
                 <TableCell>{toTitleCase(p.name)}</TableCell>
                 <TableCell>{p.description}</TableCell>
-                <TableCell>{p.petType[0].split(",").map(t => t.trim()).join(", ")}</TableCell>
+                <TableCell>{p.petType.join(", ")}</TableCell>
                 <TableCell>{p.category}</TableCell>
                 <TableCell>{formatPrice(p.price)}</TableCell>
                 <TableCell>
