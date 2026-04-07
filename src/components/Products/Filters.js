@@ -5,6 +5,7 @@ import {
   Select,
   InputLabel,
   FormControl,
+  Button, 
 } from '@mui/material';
 
 const Filters = () => {
@@ -58,6 +59,11 @@ const Filters = () => {
           <MenuItem value="accessories">Accessories</MenuItem>
         </Select>
       </FormControl>
+          
+      <Button variant="outlined" >
+        Clear Filters
+      </Button>
+
     </Box>
   );
 };
