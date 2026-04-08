@@ -29,9 +29,9 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    if (user?.id) fetchUserCart();
+    if (user?._id) fetchUserCart();
   }, [user]);
-
+  
   const handleEditQuantity = (productId, newQuantity) => {
     if (newQuantity < 1) return;
 
