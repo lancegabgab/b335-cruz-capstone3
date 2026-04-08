@@ -38,6 +38,11 @@ const Login = () => {
         const token = data.data.access;
         const user = data.data.user;
         localStorage.setItem('access', token);
+        
+        localStorage.setItem('user', JSON.stringify({
+          id: user.id,
+          isAdmin: user.isAdmin
+        }));
 
         setUser({
           id: user.id,
