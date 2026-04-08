@@ -11,7 +11,7 @@ const Cart = () => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { callApi } = useApi("");
+  const { callApi } = useApi();
 
   const fetchUserCart = async () => {
     setLoading(true);
@@ -25,7 +25,7 @@ const Cart = () => {
 
       setCart(Array.isArray(data?.data?.items) ? data.data.items : []);
     } catch (err) {
-      setError("Failed to fetch cart");
+      setError(err.message || "Failed to fetch cart");
     } finally {
       setLoading(false);
     }
@@ -34,7 +34,6 @@ const Cart = () => {
   useEffect(() => {
     if (user.id) fetchUserCart();
   }, [user]);
-
   const handleEditQuantity = (productId, newQuantity) => {
     if (newQuantity < 1) return;
 
