@@ -127,7 +127,7 @@ const Users = () => {
               </TableRow>
             ) : (
               users.map((singleUser) => (
-                <TableRow key={singleUser._id}>
+                <TableRow key={singleUser.id}>
                   <TableCell>{toTitleCase(`${singleUser.firstName} ${singleUser.lastName}`)}</TableCell>
                   <TableCell>{singleUser.isAdmin ? 'Yes' : 'No'}</TableCell>
                   <TableCell align="center">
