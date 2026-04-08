@@ -8,9 +8,22 @@ const UserView = ({ ordersData }) => {
         <Typography align="center">No orders found.</Typography>
       ) : (
         <Stack spacing={3}>
-          {ordersData.map(order => (
-            <OrderCard key={order._id} order={order} />
-          ))}
+          {ordersData.map(({ order, items }) => {
+            const productsOrdered = items.map(item => ({
+              productId: item.productId._id,
+              name: item.name,
+              price: item.price,
+              quantity: item.quantity,
+              image: item.productId.image || null 
+            }));
+
+            return (
+              <OrderCard
+                key={order._id}
+                order={{ ...order, productsOrdered }}
+              />
+            );
+          })}
         </Stack>
       )}
     </Container>
