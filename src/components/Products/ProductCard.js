@@ -20,7 +20,7 @@ const ProductCard = ({ product, addToCart }) => {
   const handleAddToCart = async () => {
     setAdding(true);
     try {
-      await addToCart(product._id); 
+      await addToCart(product.id); 
       Swal.fire({
         icon: 'success',
         title: 'Added to Cart!',
