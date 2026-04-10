@@ -47,7 +47,7 @@ const UserView = ({ productsData }) => {
       {!loadingProducts && activeProducts.length > 0 && (
         <Grid container spacing={3}>
           {activeProducts.map(product => (
-            <Grid item xs={12} sm={6} md={4} key={product._id}>
+            <Grid item xs={12} sm={6} md={4} key={product.id}>
               <ProductCard product={product} addToCart={addToCart} />
             </Grid>
           ))}
