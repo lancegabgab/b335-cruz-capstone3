@@ -58,7 +58,7 @@ const AdminView = ({ productsData, fetchData }) => {
 
   const handleEditClick = (p) => {
     setProduct(p);
-    setSelectedProductId(p._id);
+    setSelectedProductId(p.id);
     setShowEditDialog(true);
   };
 
@@ -137,7 +137,7 @@ const AdminView = ({ productsData, fetchData }) => {
           </TableHead>
           <TableBody>
             {productsData.map((p) => (
-              <TableRow key={p._id}>
+              <TableRow key={p.id}>
                 <TableCell>
                   <Avatar src={p.image || NoImage} variant="rounded" sx={{ width: 50, height: 50 }} />
                 </TableCell>
@@ -153,9 +153,9 @@ const AdminView = ({ productsData, fetchData }) => {
                   <Stack direction="row" spacing={1}>
                     <Button variant="outlined" onClick={() => handleEditClick(p)}>Edit</Button>
                     {p.isActive ? (
-                      <Button variant="outlined" color="error" onClick={() => handleArchive(p._id)}>Archive</Button>
+                      <Button variant="outlined" color="error" onClick={() => handleArchive(p.id)}>Archive</Button>
                     ) : (
-                      <Button variant="outlined" color="success" onClick={() => handleActivate(p._id)}>Activate</Button>
+                      <Button variant="outlined" color="success" onClick={() => handleActivate(p.id)}>Activate</Button>
                     )}
                   </Stack>
                 </TableCell>
