@@ -39,7 +39,7 @@ const Users = () => {
       }
 
       const data = await response.json();
-      setUsers(data);
+      setUsers(data.data);
     } catch (error) {
       console.error('Error fetching all users:', error);
       setError('Failed to fetch user data');
