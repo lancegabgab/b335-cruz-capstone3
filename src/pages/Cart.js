@@ -10,16 +10,18 @@ const Cart = () => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { callApi } = useApi(); 
+  const { callApi } = useApi();
 
   const fetchUserCart = async () => {
     setLoading(true);
     setError(null);
+
     try {
       const data = await callApi({
         method: "GET",
         url: "/cart/get-cart",
       });
+
       setCart(Array.isArray(data?.data?.items) ? data.data.items : []);
     } catch (err) {
       setError(err.message || "Failed to fetch cart");
@@ -29,15 +31,15 @@ const Cart = () => {
   };
 
   useEffect(() => {
-    if (user?._id) fetchUserCart();
-  }, [user]);
-  
+    if (user?.id) fetchUserCart();
+  }, [user?.id]);
+
   const handleEditQuantity = (productId, newQuantity) => {
     if (newQuantity < 1) return;
 
     setCart((prev) =>
       prev.map((item) =>
-        item.productId._id === productId
+        item.product.id === productId
           ? { ...item, quantity: newQuantity }
           : item
       )
@@ -57,7 +59,7 @@ const Cart = () => {
       );
 
       setCart((prev) =>
-        prev.filter((item) => item.productId._id !== productId)
+        prev.filter((item) => item.product.id !== productId)
       );
 
       Swal.fire("Removed!", "Item removed from cart", "success");
@@ -74,6 +76,7 @@ const Cart = () => {
           Authorization: `Bearer ${localStorage.getItem("access")}`,
         },
       });
+
       setCart([]);
       Swal.fire("Cleared!", "Cart has been cleared", "success");
     } catch (err) {
@@ -91,7 +94,13 @@ const Cart = () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("access")}`,
           },
-          body: JSON.stringify({ productsOrdered: cart }),
+          body: JSON.stringify({
+            productsOrdered: cart.map((item) => ({
+              productId: item.product.id,
+              quantity: item.quantity,
+              price: item.price,
+            })),
+          }),
         }
       );
 
@@ -107,7 +116,9 @@ const Cart = () => {
   };
 
   const calculateTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cart.reduce((total, item) => {
+      return total + item.price * item.quantity;
+    }, 0);
   };
 
   return (
@@ -128,14 +139,16 @@ const Cart = () => {
         </Typography>
       )}
 
-      <ShoppingCart
-        cart={cart}
-        handleEditQuantity={handleEditQuantity}
-        handleRemoveProduct={handleRemoveProduct}
-        handleClearCart={handleClearCart}
-        handleCheckout={handleCheckout}
-        calculateTotal={calculateTotal}
-      />
+      {!loading && !error && (
+        <ShoppingCart
+          cart={cart}
+          handleEditQuantity={handleEditQuantity}
+          handleRemoveProduct={handleRemoveProduct}
+          handleClearCart={handleClearCart}
+          handleCheckout={handleCheckout}
+          calculateTotal={calculateTotal}
+        />
+      )}
     </Container>
   );
 };
