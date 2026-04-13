@@ -4,6 +4,7 @@ import UserContext from "../UserContext";
 import ShoppingCart from "../components/Cart/ShoppingCart";
 import Swal from "sweetalert2";
 import useApi from "../hooks/useApi";
+import axios from "axios";
 
 const Cart = () => {
   const { user } = useContext(UserContext);
@@ -15,14 +16,21 @@ const Cart = () => {
   const fetchUserCart = async () => {
     setLoading(true);
     setError(null);
-
+  
     try {
-      const data = await callApi({
-        method: "GET",
-        url: "/cart/get-cart",
-      });
-
-      setCart(Array.isArray(data?.data?.items) ? data.data.items : []);
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/cart/get-cart`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access")}`,
+          },
+        }
+      );
+  
+      console.log("API URL:", process.env.REACT_APP_API_URL);
+      console.log("CART RESPONSE:", response.data);
+  
+      setCart(response.data?.data?.items || []);
     } catch (err) {
       setError(err.message || "Failed to fetch cart");
     } finally {
