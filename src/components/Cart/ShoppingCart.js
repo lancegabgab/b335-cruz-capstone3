@@ -69,7 +69,7 @@ const ShoppingCart = ({
 
                 {cart.map((item) => (
                   <Box
-                    key={item.productId._id}
+                    key={item.product.id}
                     display="flex"
                     alignItems="center"
                     mb={2}
@@ -82,7 +82,7 @@ const ShoppingCart = ({
                       <Box
                         component="img"
                         src={NoImage}
-                        alt={item.productId.name}
+                        alt={item.product.name}
                         sx={{
                           width: 60,
                           height: 60,
@@ -93,7 +93,7 @@ const ShoppingCart = ({
                       />
 
                       <Typography fontWeight="bold">
-                        {toTitleCase(item.productId.name)}
+                        {toTitleCase(item.product.name)}
                       </Typography>
                     </Box>
 
@@ -102,7 +102,7 @@ const ShoppingCart = ({
                         <IconButton
                           size="small"
                           onClick={() =>
-                            handleEditQuantity(item.productId._id, item.quantity - 1)
+                            handleEditQuantity(item.product.id, item.quantity - 1)
                           }
                         >
                           <RemoveIcon fontSize="small" />
@@ -115,7 +115,7 @@ const ShoppingCart = ({
                         <IconButton
                           size="small"
                           onClick={() =>
-                            handleEditQuantity(item.productId._id, item.quantity + 1)
+                            handleEditQuantity(item.product.id, item.quantity + 1)
                           }
                         >
                           <AddIcon fontSize="small" />
@@ -139,7 +139,7 @@ const ShoppingCart = ({
                       <IconButton
                         color="error"
                         size="small"
-                        onClick={() => handleRemoveProduct(item.productId._id)}
+                        onClick={() => handleRemoveProduct(item.product.id)}
                       >
                         <DeleteIcon fontSize="small" />
                       </IconButton>
