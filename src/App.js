@@ -29,25 +29,24 @@ const App = () => {
   useEffect(() => {
     const getUser = async () => {
       const data = await callApi();
-
-      if (data && data._id) {
+  
+      const userId = data?._id || data?.data?._id;
+  
+      if (userId) {
         setUser({
-          id: data._id,
-          isAdmin: data.isAdmin,
+          id: userId,
+          isAdmin: data?.isAdmin ?? data?.data?.isAdmin ?? false,
         });
       } else {
-        setUser({
-          id: null,
-          isAdmin: null,
-        });
+        setUser({ id: null, isAdmin: null });
       }
-
+  
       setLoading(false);
     };
-
+  
     getUser();
   }, []);
-
+  
   if (loading) return <div>Loading...</div>;
 
   return (
