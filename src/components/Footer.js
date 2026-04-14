@@ -16,12 +16,12 @@ const Footer = () => {
         textAlign: "center",
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
+      <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
         <Box
           component="img"
           src={logo}
           alt="Pet Paradise Logo"
-          sx={{ height: 40, mr: 1 }}
+          sx={{ height: 40 }}
         />
       </Box>
 
@@ -32,7 +32,7 @@ const Footer = () => {
 
       <Typography variant="body2" sx={{ mt: 3 }}>
         Follow Us:{" "}
-        <Stack direction="row">
+        <Stack direction="row" spacing={2} justifyContent="center">
           <Link href="https://www.facebook.com/lancegabriel.cruz.90" target="_blank" underline="hover" sx={{ color: "white" }}>
             <FontAwesomeIcon icon={faFacebook} size="2xl" />
           </Link>
