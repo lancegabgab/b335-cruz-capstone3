@@ -32,7 +32,7 @@ const Footer = () => {
 
       <Typography variant="body2" sx={{ mt: 3 }}>
         Follow Us:{" "}
-        <Stack direction="row" spacing={2} justifyContent="center">
+        <Stack direction="row" justifyContent="center">
           <Link href="https://www.facebook.com/lancegabriel.cruz.90" target="_blank" underline="hover" sx={{ color: "white" }}>
             <FontAwesomeIcon icon={faFacebook} size="2xl" />
           </Link>
