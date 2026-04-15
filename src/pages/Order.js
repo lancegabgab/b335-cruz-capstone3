@@ -39,7 +39,7 @@ const Order = () => {
         {user?.isAdmin ? "Users' Orders" : "My Orders"}
       </Typography>
   
-      <OrderStatusTabs />
+      {/* <OrderStatusTabs /> */}
       {user?.isAdmin ? (
         <AdminView ordersData={orders} fetchData={fetchData} />
       ) : (
