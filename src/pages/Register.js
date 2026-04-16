@@ -65,7 +65,14 @@ const Register = () => {
           icon: 'success',
           title: data.message,
           text: 'You can now sign in.',
-        }).then(() => navigate('/login'));
+          showCancelButton: true,
+          confirmButtonText: 'Sign In',
+          cancelButtonText: 'Back',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate('/login');
+          }
+        });
       } else {
         Swal.fire({
           icon: 'error',
