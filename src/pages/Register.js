@@ -60,17 +60,17 @@ const Register = () => {
 
       const data = await res.json();
 
-      if (data.message === 'Registered Successfully') {
+      if (data.success) {
         Swal.fire({
           icon: 'success',
-          title: 'Registration successful',
+          title: data.message,
           text: 'You can now sign in.',
         }).then(() => navigate('/login'));
       } else {
         Swal.fire({
           icon: 'error',
           title: 'Registration failed',
-          text: data.error || 'Something went wrong.',
+          text: data.message,
         });
       }
     } catch (err) {
