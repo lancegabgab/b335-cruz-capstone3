@@ -16,7 +16,8 @@ import {
   DialogActions,
   TextField,
   Avatar,
-  Chip
+  Chip,
+  MenuItem
 } from "@mui/material";
 import { useState } from "react";
 import Swal from "sweetalert2";
@@ -24,10 +25,18 @@ import NoImage from "../../images/NoImage.jpg";
 import { toTitleCase } from '../../utils/stringUtils';
 import { formatPrice } from '../../utils/priceUtils';
 
+const categories = ["toys", "accessories"];
+
 const AdminView = ({ productsData, fetchData }) => {
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [showEditDialog, setShowEditDialog] = useState(false);
-  const [product, setProduct] = useState({ name: "", description: "", price: 0, image: "" });
+  const [product, setProduct] = useState({ 
+    name: "", 
+    description: "", 
+    price: 0, 
+    image: "",
+    category: "toys"
+  });
   const [selectedProductId, setSelectedProductId] = useState(null);
 
   const handleChange = (e) => setProduct({ ...product, [e.target.name]: e.target.value });
@@ -46,7 +55,12 @@ const AdminView = ({ productsData, fetchData }) => {
       if (res.ok) {
         Swal.fire("Success", "Product added successfully!", "success");
         setShowAddDialog(false);
-        setProduct({ name: "", description: "", price: 0, image: "" });
+        setProduct({ name: "",
+                    description: "", 
+                    price: 0, 
+                    image: "",
+                    category: "toys"
+                   });
         fetchData();
       } else {
         Swal.fire("Error", data.error || "Failed to add product", "error");
@@ -57,7 +71,14 @@ const AdminView = ({ productsData, fetchData }) => {
   };
 
   const handleEditClick = (p) => {
-    setProduct(p);
+    setProduct({
+      name: p.name,
+      description: p.description,
+      price: p.price,
+      image: p.image || "",
+      category: p.category || "toys"
+    });
+  
     setSelectedProductId(p.id);
     setShowEditDialog(true);
   };
@@ -172,6 +193,13 @@ const AdminView = ({ productsData, fetchData }) => {
             <TextField label="Name" name="name" value={product.name} onChange={handleChange} fullWidth />
             <TextField label="Description" name="description" value={product.description} onChange={handleChange} fullWidth multiline rows={3} />
             <TextField label="Price" name="price" type="number" value={product.price} onChange={handleChange} fullWidth />
+            <TextField select label="Category" name="category" value={product.category} onChange={handleChange} fullWidth  >
+              {categories.map((category) => (
+                <MenuItem key={category} value={category}>
+                  {toTitleCase(category)}
+                </MenuItem>
+              ))}
+            </TextField>
           </Stack>
         </DialogContent>
         <DialogActions>
@@ -187,6 +215,13 @@ const AdminView = ({ productsData, fetchData }) => {
             <TextField label="Name" name="name" value={product.name} onChange={handleChange} fullWidth />
             <TextField label="Description" name="description" value={product.description} onChange={handleChange} fullWidth multiline rows={3} />
             <TextField label="Price" name="price" type="number" value={product.price} onChange={handleChange} fullWidth />
+            <TextField select label="Category" name="category" value={product.category} onChange={handleChange} fullWidth  >
+              {categories.map((category) => (
+                <MenuItem key={category} value={category}>
+                  {toTitleCase(category)}
+                </MenuItem>
+              ))}
+            </TextField>
           </Stack>
         </DialogContent>
         <DialogActions>
