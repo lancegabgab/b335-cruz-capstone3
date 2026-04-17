@@ -17,7 +17,9 @@ import {
   TextField,
   Avatar,
   Chip,
-  MenuItem
+  MenuItem,
+  Checkbox,
+  ListItemText
 } from "@mui/material";
 import { useState } from "react";
 import Swal from "sweetalert2";
@@ -26,6 +28,7 @@ import { toTitleCase } from '../../utils/stringUtils';
 import { formatPrice } from '../../utils/priceUtils';
 
 const categories = ["toys", "accessories"];
+const petTypes = ["cat", "dog", "hamster"];
 
 const AdminView = ({ productsData, fetchData }) => {
   const [showAddDialog, setShowAddDialog] = useState(false);
@@ -35,12 +38,20 @@ const AdminView = ({ productsData, fetchData }) => {
     description: "", 
     price: 0, 
     image: "",
-    category: "toys"
+    category: "toys",
+    petType: [] 
   });
   const [selectedProductId, setSelectedProductId] = useState(null);
 
   const handleChange = (e) => setProduct({ ...product, [e.target.name]: e.target.value });
 
+  const handlePetTypeChange = (e) => {
+    setProduct({
+      ...product,
+      petType: e.target.value
+    });
+  };
+  
   const handleAddProduct = async () => {
     try {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/products/`, {
@@ -59,7 +70,8 @@ const AdminView = ({ productsData, fetchData }) => {
                     description: "", 
                     price: 0, 
                     image: "",
-                    category: "toys"
+                    category: "toys",
+                    petType: []
                    });
         fetchData();
       } else {
@@ -76,7 +88,8 @@ const AdminView = ({ productsData, fetchData }) => {
       description: p.description,
       price: p.price,
       image: p.image || "",
-      category: p.category || "toys"
+      category: p.category || "toys",
+      petType: p.petType || []
     });
   
     setSelectedProductId(p.id);
@@ -200,6 +213,21 @@ const AdminView = ({ productsData, fetchData }) => {
                 </MenuItem>
               ))}
             </TextField>
+            <TextField
+              select
+              label="Pet Type"
+              fullWidth
+              SelectProps={{ multiple: true }}
+              value={product.petType}
+              onChange={handlePetTypeChange}
+            >
+              {petTypes.map((type) => (
+                <MenuItem key={type} value={type}>
+                  <Checkbox checked={product.petType.indexOf(type) > -1} />
+                  <ListItemText primary={type} />
+                </MenuItem>
+              ))}
+            </TextField>
           </Stack>
         </DialogContent>
         <DialogActions>
@@ -219,6 +247,21 @@ const AdminView = ({ productsData, fetchData }) => {
               {categories.map((category) => (
                 <MenuItem key={category} value={category}>
                   {toTitleCase(category)}
+                </MenuItem>
+              ))}
+            </TextField>
+            <TextField
+              select
+              label="Pet Type"
+              fullWidth
+              SelectProps={{ multiple: true }}
+              value={product.petType}
+              onChange={handlePetTypeChange}
+            >
+              {petTypes.map((type) => (
+                <MenuItem key={type} value={type}>
+                  <Checkbox checked={product.petType.indexOf(type) > -1} />
+                  <ListItemText primary={type} />
                 </MenuItem>
               ))}
             </TextField>
