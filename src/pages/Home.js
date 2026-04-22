@@ -43,14 +43,14 @@ const Home = () => {
         sx={{ 
           fontWeight: 'bold', 
           mb: 2,
-          fontSize: { xs: '1.8rem', md: '3rem' }
+          fontSize: { xs: '1.8rem', md: '3.8rem' }
         }}>
           Fun Toys for Happy Pets
         </Typography>
         <Typography variant="h6" 
         sx={{
           mb: 3,
-          fontSize: { xs: '0.9rem', md: '1.2rem' }
+          fontSize: { xs: '0.9rem', md: '1.8rem' }
         }}>
           Discover safe and exciting toys your pets will love
         </Typography>
