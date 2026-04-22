@@ -7,14 +7,19 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <Box sx={{ position: 'relative', width: '100%' }}>
+    <Box 
+      sx={{ 
+        position: 'relative', 
+        width: '100%',
+        height: { xs: '70vh', md: '100vh' }
+      }}>
       <Box
         component="img"
         src={Banner}
         alt="Pet Paradise Banner"
         sx={{
           width: '100%',
-          maxHeight: 700,
+          height: '100%',
           objectFit: 'cover',
         }}
       />
@@ -34,10 +39,19 @@ const Home = () => {
           px: 4,
         }}
       >
-        <Typography variant="h3" sx={{ fontWeight: 'bold', mb: 2 }}>
+        <Typography variant="h3" 
+        sx={{ 
+          fontWeight: 'bold', 
+          mb: 2,
+          fontSize: { xs: '1.8rem', md: '3rem' }
+        }}>
           Fun Toys for Happy Pets
         </Typography>
-        <Typography variant="h6" sx={{ mb: 3 }}>
+        <Typography variant="h6" 
+        sx={{
+          mb: 3,
+          fontSize: { xs: '0.9rem', md: '1.2rem' }
+        }}>
           Discover safe and exciting toys your pets will love
         </Typography>
         <Button
@@ -46,7 +60,7 @@ const Home = () => {
             backgroundColor: '#2E7D32', 
             color: '#fff', 
             borderRadius: '50px',
-            fontWeight: 'bold' 
+            fontWeight: 'bold'
           }}
           onClick={() => navigate('/products')}
         >
