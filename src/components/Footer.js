@@ -61,7 +61,7 @@ const Footer = () => {
       </Typography>
 
       <Typography variant="caption" display="block" sx={{ mt: 3 }}>
-        © 2023 Pet Paradise. All rights reserved.{" "}
+        © {new Date().getFullYear()} Pet Paradise. All rights reserved.{" "}
       </Typography>
     </Box>
   );
